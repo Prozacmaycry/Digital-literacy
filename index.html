@@ -348,42 +348,58 @@
             </ul>
         </div>
     </div><script>
-    // Мобильное меню - исправленный код
-    document.addEventListener('DOMContentLoaded', function() {
-        const nav = document.querySelector('nav');
-        const navLinks = document.querySelector('.nav-links');
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+   // Мобильное меню - переделанное
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+    const menuOverlay = document.querySelector('.menu-overlay');
+    const body = document.body;
+
+    function toggleMenu() {
+        const isActive = navLinks.classList.contains('active');
         
-        // Если кнопка уже есть в HTML, используем ее
-        if (mobileMenuBtn) {
-            // Убираем inline стиль display: none
-            mobileMenuBtn.style.display = '';
-            
-            // Обработчик клика по кнопке
-            mobileMenuBtn.addEventListener('click', function() {
-                navLinks.classList.toggle('active');
-                mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
-                    ? '<i class="fas fa-times"></i>' 
-                    : '<i class="fas fa-bars"></i>';
-            });
-            
-            // Закрытие меню при клике на ссылку
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.addEventListener('click', () => {
-                    navLinks.classList.remove('active');
-                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                });
-            });
-            
-            // Закрытие меню при клике вне его
-            document.addEventListener('click', function(e) {
-                if (!e.target.closest('nav') && navLinks.classList.contains('active')) {
-                    navLinks.classList.remove('active');
-                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                }
-            });
+        // Переключаем классы
+        mobileMenuBtn.classList.toggle('active', !isActive);
+        navLinks.classList.toggle('active', !isActive);
+        menuOverlay.classList.toggle('active', !isActive);
+        body.classList.toggle('menu-open', !isActive);
+    }
+
+    function closeMenu() {
+        mobileMenuBtn.classList.remove('active');
+        navLinks.classList.remove('active');
+        menuOverlay.classList.remove('active');
+        body.classList.remove('menu-open');
+    }
+
+    // Клик по бургеру
+    mobileMenuBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        toggleMenu();
+    });
+
+    // Клик по оверлею
+    menuOverlay.addEventListener('click', closeMenu);
+
+    // Клик по ссылкам меню
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', closeMenu);
+    });
+
+    // Закрытие меню при ресайзе на десктоп
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) {
+            closeMenu();
         }
     });
+
+    // Закрытие меню при ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeMenu();
+        }
+    });
+});
     
     // Изменение шапки при прокрутке
     window.addEventListener('scroll', function() {
