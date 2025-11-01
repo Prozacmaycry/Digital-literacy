@@ -341,21 +341,35 @@
 </footer>
 
     <script>
-
-
-                // Мобильное меню
-        const mobileMenuBtn = document.createElement('button');
-        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-        mobileMenuBtn.className = 'mobile-menu-btn';
-        document.querySelector('nav').appendChild(mobileMenuBtn);
-        
-        const navLinks = document.querySelector('.nav-links');
-        
-        mobileMenuBtn.addEventListener('click', function() {
-            navLinks.classList.toggle('active');
-            this.innerHTML = navLinks.classList.contains('active') 
-                ? '<i class="fas fa-times"></i>' 
-                : '<i class="fas fa-bars"></i>';
+        // Мобильное меню - ОДИН раз в конце файла
+        document.addEventListener('DOMContentLoaded', function() {
+            const nav = document.querySelector('nav');
+            const navLinks = document.querySelector('.nav-links');
+            
+            // Создаем кнопку мобильного меню
+            const mobileMenuBtn = document.createElement('button');
+            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            mobileMenuBtn.className = 'mobile-menu-btn';
+            mobileMenuBtn.setAttribute('aria-label', 'Открыть меню');
+            
+            // Добавляем кнопку в навигацию
+            nav.appendChild(mobileMenuBtn);
+            
+            // Обработчик клика по кнопке
+            mobileMenuBtn.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+                mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
+                    ? '<i class="fas fa-times"></i>' 
+                    : '<i class="fas fa-bars"></i>';
+            });
+            
+            // Закрытие меню при клике на ссылку
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                });
+            });
         });
         
         // Закрытие меню при клике на ссылку
@@ -431,36 +445,7 @@
             observer.observe(el);
         });
 
-        // Мобильное меню (добавьте эту кнопку в навигацию)
-        const mobileMenuBtn = document.createElement('button');
-        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-        mobileMenuBtn.className = 'mobile-menu-btn';
-        document.querySelector('nav').appendChild(mobileMenuBtn);
-
-        // Стили для мобильного меню
-        const mobileMenuStyles = `
-            .mobile-menu-btn {
-                display: none;
-                background: none;
-                border: none;
-                font-size: 1.5rem;
-                color: var(--primary-blue);
-                cursor: pointer;
-            }
-            
-            @media (max-width: 768px) {
-                .mobile-menu-btn {
-                    display: block;
-                }
-                .nav-links {
-                    display: none;
-                }
-            }
-        `;
-        
-        const styleSheet = document.createElement('style');
-        styleSheet.textContent = mobileMenuStyles;
-        document.head.appendChild(styleSheet);
+      
     </script>
     <!-- Добавь этот код перед закрывающим тегом </body> -->
 
