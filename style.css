@@ -1342,6 +1342,89 @@ footer::after {
         to { opacity: 1; transform: translateY(0); }        
 }
 
+
+
+
+    /* Мобильное меню */
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--primary-blue);
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: all 0.3s ease;
+    z-index: 1001;
+}
+
+.mobile-menu-btn:hover {
+    color: var(--primary-orange);
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .mobile-menu-btn {
+        display: block;
+    }
+    
+    .nav-links {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background: var(--white);
+        flex-direction: column;
+        padding: 2rem 0;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        gap: 0;
+        transform: translateY(-20px);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 1000;
+    }
+    
+    .nav-links.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .nav-links li {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .nav-links a {
+        display: block;
+        padding: 1rem 2rem;
+        border-bottom: 1px solid var(--light-gray);
+        font-size: 1.1rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-links a:hover {
+        background: var(--light-gray);
+        color: var(--primary-orange);
+    }
+    
+    .nav-links a::after {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-links {
+        top: 70px;
+    }
+    
+    .nav-links a {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
+}
 /* АДАПТИВНЫЕ СТИЛИ */
 
 /* Планшеты и маленькие ноутбуки */
