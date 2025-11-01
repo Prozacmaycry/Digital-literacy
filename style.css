@@ -1359,6 +1359,8 @@ footer::after {
     width: 40px;
     height: 40px;
     border-radius: 5px;
+    align-items: center;
+    justify-content: center;
 }
 
 .mobile-menu-btn:hover {
@@ -1369,8 +1371,6 @@ footer::after {
 @media (max-width: 768px) {
     .mobile-menu-btn {
         display: flex;
-        align-items: center;
-        justify-content: center;
     }
     
     .nav-links {
@@ -1413,6 +1413,7 @@ footer::after {
         display: none;
     }
 }
+
 @media (max-width: 480px) {
     .nav-links {
         top: 70px;
