@@ -213,7 +213,7 @@ nav {
 
 /* Главный экран */
 .hero {
-    background: linear-gradient(135deg, rgba(255, 138, 0, 0.9) 0%, rgba(255, 107, 53, 0.9) 100%), url(image/assets_task_01k7p6v0tfezz9j1brazz8mnb6_1760608336_img_0.webp) center/cover;
+    background: linear-gradient(135deg, rgba(255, 138, 0, 0.9) 0%, rgba(255, 107, 53, 0.9) 100%), url(images/assets_task_01k7p6v0tfezz9j1brazz8mnb6_1760608336_img_0.webp) center/cover;
     color: var(--white);
     padding: 180px 0 120px;
     text-align: center;
