@@ -342,8 +342,11 @@
                 <li><a href="#">Пользовательское соглашение</a></li>
             </ul>
         </div>
-    </div><script>
-   // Мобильное меню - переделанное
+    </div>
+        
+<script>
+   
+// Мобильное меню - простой и надежный
 document.addEventListener('DOMContentLoaded', function() {
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const navLinks = document.querySelector('.nav-links');
@@ -353,7 +356,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function toggleMenu() {
         const isActive = navLinks.classList.contains('active');
         
-        // Переключаем классы
         mobileMenuBtn.classList.toggle('active', !isActive);
         navLinks.classList.toggle('active', !isActive);
         menuOverlay.classList.toggle('active', !isActive);
@@ -368,10 +370,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Клик по бургеру
-    mobileMenuBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        toggleMenu();
-    });
+    mobileMenuBtn.addEventListener('click', toggleMenu);
 
     // Клик по оверлею
     menuOverlay.addEventListener('click', closeMenu);
@@ -381,16 +380,9 @@ document.addEventListener('DOMContentLoaded', function() {
         link.addEventListener('click', closeMenu);
     });
 
-    // Закрытие меню при ресайзе на десктоп
+    // Закрытие при ресайзе
     window.addEventListener('resize', function() {
         if (window.innerWidth > 768) {
-            closeMenu();
-        }
-    });
-
-    // Закрытие меню при ESC
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
             closeMenu();
         }
     });
