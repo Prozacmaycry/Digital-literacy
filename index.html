@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Цифровая грамотность для взрослых</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+   <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- Шапка -->
@@ -16,19 +16,13 @@
                     <i class="fas fa-laptop-code"></i>
                     Цифровая грамотность
                 </div>
-                
+
                 <ul class="nav-links">
                     <li><a href="#about">О курсе</a></li>
                     <li><a href="modules.html">Модули</a></li>
                     <li><a href="#reviews">Отзывы</a></li>
                     <li><a href="#contact">Запись</a></li>
                 </ul>
-                
-                <button class="mobile-menu-btn">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
             </nav>
         </div>
     </header>
@@ -48,7 +42,7 @@
         </div>
     </section>
 
-    <!-- Для кого курс -->
+    <!-- Для кого курс - ИСПРАВЛЕННЫЙ -->
     <section id="audience" class="audience-section">
         <div class="container">
             <h2>Этот курс создан специально для вас, если:</h2>
@@ -107,78 +101,87 @@
         </div>
     </section>
 
-    <!-- Слайдер -->
+    <!-- Слайдер в стиле Polaris - ПОЛНОСТЬЮ ПЕРЕДЕЛАННЫЙ -->
     <section class="promo-slider">
-        <div class="container">
-            <div class="slider-wrapper">
-                <div class="slider-track">
-                    <div class="slide">
-                        <div class="slider-text">
-                            <div class="slider-badge">Только в нашем центре</div>
-                            <h2>Освойте технологии<br>и получите скидку 30%</h2>
-                            <p class="slider-subtitle">Запишитесь на курс до 31 декабря и получите персональную скидку на все последующие занятия</p>
-                            <div class="slider-features">
-                                <div class="feature-item">
-                                    <i class="fas fa-check-circle"></i>
-                                    <span>Гарантия результата</span>
-                                </div>
-                                <div class="feature-item">
-                                    <i class="fas fa-users"></i>
-                                    <span>Маленькие группы</span>
-                                </div>
+    <div class="container">
+        <div class="slider-wrapper">
+            <div class="slider-track">
+                <!-- Все три слайда с одной картинкой -->
+                <div class="slide">
+                    <div class="slider-text">
+                        <div class="slider-badge">Только в нашем центре</div>
+                        <h2>Освойте технологии<br>и получите скидку 30%</h2>
+                        <p class="slider-subtitle">Запишитесь на курс до 31 декабря и получите персональную скидку на все последующие занятия</p>
+                        <div class="slider-features">
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Гарантия результата</span>
                             </div>
-                            <a href="#contact" class="btn">ЗАПИСАТЬСЯ СО СКИДКОЙ</a>
+                            <div class="feature-item">
+                                <i class="fas fa-users"></i>
+                                <span>Маленькие группы</span>
+                            </div>
                         </div>
-                        <div class="slider-image">
-                            <img src="images/assets_task_01k7p7gca0exv8dk48prayygrg_1760609034_img_0.webp" alt="Обучение цифровой грамотности">
-                        </div>
+                        <a href="#contact" class="btn">ЗАПИСАТЬСЯ СО СКИДКОЙ</a>
                     </div>
-                    
-                    <div class="slide">
-                        <div class="slider-text">
-                            <div class="slider-badge">Специальное предложение</div>
-                            <h2>Первое занятие<br>бесплатно</h2>
-                            <p class="slider-subtitle">Приходите на пробный урок и убедитесь, что наш курс вам подходит</p>
-                            <div class="slider-features">
-                                <div class="feature-item">
-                                    <i class="fas fa-star"></i>
-                                    <span>Без обязательств</span>
-                                </div>
-                                <div class="feature-item">
-                                    <i class="fas fa-clock"></i>
-                                    <span>90 минут</span>
-                                </div>
-                            </div>
-                            <a href="#contact" class="btn btn-orange">ЗАПИСАТЬСЯ НА ПРОБНЫЙ УРОК</a>
-                        </div>
-                        <div class="slider-image">
-                            <img src="images/assets_task_01k7p7gca0exv8dk48prayygrg_1760609034_img_0.webp" alt="Обучение цифровой грамотности">
-                        </div>
+                    <div class="slider-image">
+                        <img src="image/assets_task_01k7p7gca0exv8dk48prayygrg_1760609034_img_0.webp" alt="Обучение цифровой грамотности">
                     </div>
-                    
-                    <div class="slide">
-                        <div class="slider-text">
-                            <div class="slider-badge">Новогодняя акция</div>
-                            <h2>Дарите знания<br>близким</h2>
-                            <p class="slider-subtitle">Подарочный сертификат на курс цифровой грамотности для ваших родителей</p>
-                            <div class="slider-features">
-                                <div class="feature-item">
-                                    <i class="fas fa-gift"></i>
-                                    <span>Красивый дизайн</span>
-                                </div>
-                                <div class="feature-item">
-                                    <i class="fas fa-calendar"></i>
-                                    <span>Год на активацию</span>
-                                </div>
+                </div>
+                
+                <div class="slide">
+                    <div class="slider-text">
+                        <div class="slider-badge">Специальное предложение</div>
+                        <h2>Первое занятие<br>бесплатно</h2>
+                        <p class="slider-subtitle">Приходите на пробный урок и убедитесь, что наш курс вам подходит</p>
+                        <div class="slider-features">
+                            <div class="feature-item">
+                                <i class="fas fa-star"></i>
+                                <span>Без обязательств</span>
                             </div>
-                            <a href="#contact" class="btn btn-orange">ПРИОБРЕСТИ СЕРТИФИКАТ</a>
+                            <div class="feature-item">
+                                <i class="fas fa-clock"></i>
+                                <span>90 минут</span>
+                            </div>
                         </div>
-                        <div class="slider-image">
-                            <img src="images/assets_task_01k7p7gca0exv8dk48prayygrg_1760609034_img_0.webp" alt="Обучение цифровой грамотности">
+                        <a href="#contact" class="btn btn-orange">ЗАПИСАТЬСЯ НА ПРОБНЫЙ УРОК</a>
+                    </div>
+                    <div class="slider-image">
+                        <img src="image/assets_task_01k7p7gca0exv8dk48prayygrg_1760609034_img_0.webp" alt="Обучение цифровой грамотности">
+                    </div>
+                </div>
+                
+                <div class="slide">
+                    <div class="slider-text">
+                        <div class="slider-badge">Новогодняя акция</div>
+                        <h2>Дарите знания<br>близким</h2>
+                        <p class="slider-subtitle">Подарочный сертификат на курс цифровой грамотности для ваших родителей</p>
+                        <div class="slider-features">
+                            <div class="feature-item">
+                                <i class="fas fa-gift"></i>
+                                <span>Красивый дизайн</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>Год на активацию</span>
+                            </div>
                         </div>
+                        <a href="#contact" class="btn btn-orange">ПРИОБРЕСТИ СЕРТИФИКАТ</a>
+                    </div>
+                    <div class="slider-image">
+                        <img src="image/assets_task_01k7p7gca0exv8dk48prayygrg_1760609034_img_0.webp" alt="Обучение цифровой грамотности">
                     </div>
                 </div>
             </div>
+        </div>
+        
+        <div class="slider-nav">
+            <div class="slider-dot active" data-slide="0"></div>
+            <div class="slider-dot" data-slide="1"></div>
+            <div class="slider-dot" data-slide="2"></div>
+        </div>
+    </div>
+    </section>
             
             <div class="slider-nav">
                 <div class="slider-dot active" data-slide="0"></div>
@@ -188,7 +191,9 @@
         </div>
     </section>
 
-    <!-- Отзывы -->
+    
+
+       <!-- Отзывы -->
     <section id="reviews" class="testimonials-section">
         <div class="container">
             <h2>Наши ученики делятся впечатлениями</h2>
@@ -228,7 +233,7 @@
                 <form id="signup-form">
                     <div class="form-group">
                         <label for="name">Ваше имя</label>
-                        <input type="text" id="name" name="name" required>
+                        <input type="text" id="name" name="from_name" required>
                     </div>
                     <div class="form-group">
                         <label for="phone">Ваш телефон</label>
@@ -238,130 +243,130 @@
                         <input type="checkbox" id="agreement" name="agreement" required>
                         <label for="agreement">Я согласен(а) на обработку персональных данных</label>
                     </div>
-                    <button type="submit" class="btn btn-orange" style="width: 100%;">Записаться на курс</button>
+                    <button type="submit" class="btn btn-orange" style="width: 100%;" id="submit-btn">
+                        Записаться на курс
+                    </button>
+                    <!-- Сообщение о статусе отправки -->
+                    <div id="form-message" style="margin-top: 15px; display: none;"></div>
                 </form>
             </div>
 
             <div class="contact-info">
-                <div class="contact-item">📍 Адрес: г. Москва, ул. Примерная, д. 10</div>
-                <div class="contact-item">📞 Телефон: +7 (999) 123-45-67</div>
-                <div class="contact-item">🕒 Длительность: 6 недель (2 занятия в неделю)</div>
-                <div class="contact-item">👥 В группе: не более 8 человек</div>
+                <div class="contact-item">Адрес: г. Павлодар</div>
+                <div class="contact-item">Телефон: +7 (747) 550-98-19</div>
+                <div class="contact-item">Длительность: 6 недель (2 занятия в неделю)</div>
+                <div class="contact-item">В группе: не более 8 человек</div>
             </div>
         </div>
     </section>
 
-    <!-- Футер -->
     <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <div class="footer-logo">
-                        <i class="fas fa-laptop-code"></i>
-                        Цифровая грамотность
-                    </div>
-                    <p class="footer-description">
-                        Осваивайте технологии с уверенностью и комфортом. 
-                        Мы помогаем взрослым стать уверенными пользователями 
-                        цифровых технологий.
-                    </p>
-                    <div class="footer-social">
-                        <a href="#" class="social-link"><i class="fab fa-vk"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                    </div>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <i class="fas fa-laptop-code"></i>
+                    Цифровая грамотность
                 </div>
-                
-                <div class="footer-column">
-                    <h3>Навигация</h3>
-                    <ul class="footer-links">
-                        <li><a href="#about">О курсе</a></li>
-                        <li><a href="modules.html">Модули</a></li>
-                        <li><a href="#reviews">Отзывы</a></li>
-                        <li><a href="#contact">Запись</a></li>
-                    </ul>
+                <p class="footer-description">
+                    Осваивайте технологии с уверенностью и комфортом. 
+                    Мы помогаем взрослым стать уверенными пользователями 
+                    цифровых технологий.
+                </p>
+                <div class="footer-social">
+                    <a href="#" class="social-link"><i class="fab fa-vk"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
                 </div>
-                
-                <div class="footer-column">
-                    <h3>Контакты</h3>
-                    <div class="footer-contact">
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <span>+7 (999) 123-45-67</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>г. Москва, ул. Примерная, д. 10</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <span>info@digital-course.ru</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-clock"></i>
-                            <span>Пн-Пт: 9:00-18:00</span>
-                        </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Навигация</h3>
+                <ul class="footer-links">
+                    <li><a href="#about">О курсе</a></li>
+                    <li><a href="modules.html">Модули</a></li>
+                    <li><a href="#reviews">Отзывы</a></li>
+                    <li><a href="#contact">Запись</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Контакты</h3>
+                <div class="footer-contact">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+7 (747) 550-98-19</span>
                     </div>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Рассылка</h3>
-                    <div class="footer-newsletter">
-                        <p style="color: rgba(255,255,255,0.8); margin-bottom: 1rem; font-size: 0.9rem;">
-                            Подпишитесь на новости и акции
-                        </p>
-                        <form class="newsletter-form">
-                            <input type="email" placeholder="Ваш email" required>
-                            <button type="submit" class="btn">Подписаться</button>
-                        </form>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>г. Павлодар ул. Чокина 25</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>info@digital-course.ru</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Пн-Пт: 9:00-18:00</span>
                     </div>
                 </div>
             </div>
             
-            <div class="footer-bottom">
-                <div class="copyright">
-                    © Цифровая грамотность для взрослых, 2023. Все права защищены.
+            <div class="footer-column">
+                <h3>Рассылка</h3>
+                <div class="footer-newsletter">
+                    <p style="color: rgba(255,255,255,0.8); margin-bottom: 1rem; font-size: 0.9rem;">
+                        Подпишитесь на новости и акции
+                    </p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Ваш email" required>
+                        <button type="submit" class="btn">Подписаться</button>
+                    </form>
                 </div>
-                <ul class="footer-bottom-links">
-                    <li><a href="#">Политика конфиденциальности</a></li>
-                    <li><a href="#">Пользовательское соглашение</a></li>
-                </ul>
             </div>
         </div>
-    </footer>
-
-    <!-- Помощник -->
-    <div class="assistant-fab">
-        <div class="assistant-icon">💬</div>
-    </div>
-
-    <div class="assistant-chat">
-        <div class="chat-header">
-            <h4>Помощник курса</h4>
-            <button class="close-chat">&times;</button>
-        </div>
-        <div class="chat-messages">
-            <div class="message assistant-message">
-                Привет! 👋 Хочешь записаться на курс или узнать подробности?
+        
+        <div class="footer-bottom">
+            <div class="copyright">
+                © Цифровая грамотность для взрослых, 2023. Все права защищены.
             </div>
-        </div>
-        <div class="chat-actions">
-            <button class="chat-btn tg-btn">
-                <i class="fab fa-telegram"></i>
-                Написать в Telegram
-            </button>
-            <button class="chat-btn whatsapp-btn">
-                <i class="fab fa-whatsapp"></i>
-                Написать в WhatsApp
-            </button>
+            <ul class="footer-bottom-links">
+                <li><a href="#">Политика конфиденциальности</a></li>
+                <li><a href="#">Пользовательское соглашение</a></li>
+            </ul>
         </div>
     </div>
+</footer>
 
-    <!-- Оверлей для мобильного меню -->
-    <div class="menu-overlay"></div>
-
-    <!-- Подключение JavaScript -->
-    <script src="script.js"></script>
+<script src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
 </body>
+<div class="assistant-fab">
+    <div class="assistant-icon">💬</div>
+</div>
+
+
+<div class="assistant-chat">
+    <div class="chat-header">
+        <h4>Помощник курса</h4>
+        <button class="close-chat">&times;</button>
+    </div>
+    <div class="chat-messages">
+        <div class="message assistant-message">
+            Привет! 👋 Хочешь записаться на курс или узнать подробности?
+        </div>
+    </div>
+    <div class="chat-actions">
+        <button class="chat-btn tg-btn">
+            <i class="fab fa-telegram"></i>
+            Написать в Telegram
+        </button>
+        <button class="chat-btn whatsapp-btn">
+            <i class="fab fa-whatsapp"></i>
+            Написать в WhatsApp
+        </button>
+    </div>
+</div>
+
 </html>
