@@ -197,38 +197,106 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Обработка формы
+// EmailJS обработка формы signup-form
 document.addEventListener('DOMContentLoaded', function() {
+    // Инициализация EmailJS
+    emailjs.init("I57g_xcTJf_ttcC_n");
+    
     const signupForm = document.getElementById('signup-form');
     
     if (signupForm) {
         signupForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Получаем данные формы
-            const formData = new FormData(this);
-            const name = formData.get('name');
-            const phone = formData.get('phone');
+            const submitBtn = document.getElementById('submit-btn');
+            const originalText = submitBtn.textContent;
             
-            // Валидация
-            if (!name || !phone) {
-                alert('Пожалуйста, заполните все поля');
-                return;
+            // Показываем состояние загрузки
+            submitBtn.textContent = 'Отправка...';
+            submitBtn.disabled = true;
+            
+            // Находим или создаем элемент для сообщений
+            let formMessage = document.getElementById('form-message');
+            if (!formMessage) {
+                formMessage = document.createElement('div');
+                formMessage.id = 'form-message';
+                formMessage.style.marginTop = '15px';
+                this.appendChild(formMessage);
             }
+            formMessage.style.display = 'none';
             
-            // Здесь можно отправить данные на сервер
-            console.log('Данные формы:', { name, phone });
+            // Добавляем дату отправки
+            const currentDate = new Date().toLocaleString('ru-RU');
+            const dateField = document.createElement('input');
+            dateField.type = 'hidden';
+            dateField.name = 'date';
+            dateField.value = currentDate;
+            this.appendChild(dateField);
             
-            // Показываем сообщение об успехе
-            alert('Спасибо! Мы свяжемся с вами в ближайшее время.');
+            // Отправка формы через EmailJS
+            emailjs.sendForm("Gmailcon", "template_vs9v9by", this)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    
+                    // Успешная отправка
+                    showFormMessage('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.', 'success');
+                    this.reset();
+                    
+                    // Удаляем временное поле даты
+                    if (dateField.parentNode) {
+                        dateField.remove();
+                    }
+                    
+                    // Возвращаем кнопку в исходное состояние
+                    setTimeout(() => {
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                    }, 3000);
+                    
+                }.bind(this), function(error) {
+                    // Ошибка отправки
+                    console.error('FAILED...', error);
+                    showFormMessage('Произошла ошибка при отправке. Пожалуйста, попробуйте еще раз или свяжитесь с нами по телефону.', 'error');
+                    
+                    // Удаляем временное поле даты
+                    if (dateField.parentNode) {
+                        dateField.remove();
+                    }
+                    
+                    // Возвращаем кнопку в исходное состояние
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                });
             
-            // Очищаем форму
-            this.reset();
+            function showFormMessage(message, type) {
+                formMessage.textContent = message;
+                formMessage.style.display = 'block';
+                formMessage.style.padding = '12px';
+                formMessage.style.borderRadius = '5px';
+                formMessage.style.textAlign = 'center';
+                formMessage.style.marginTop = '15px';
+                formMessage.style.fontSize = '14px';
+                
+                if (type === 'success') {
+                    formMessage.style.backgroundColor = 'rgba(40, 167, 69, 0.1)';
+                    formMessage.style.color = '#155724';
+                    formMessage.style.border = '1px solid #c3e6cb';
+                } else {
+                    formMessage.style.backgroundColor = 'rgba(220, 53, 69, 0.1)';
+                    formMessage.style.color = '#721c24';
+                    formMessage.style.border = '1px solid #f5c6cb';
+                }
+                
+                // Автоматически скрываем сообщение через 5 секунд
+                setTimeout(() => {
+                    formMessage.style.display = 'none';
+                }, 5000);
+            }
         });
     }
 });
 
-// Newsletter форма
+// Newsletter форма (простая версия без EmailJS)
 document.addEventListener('DOMContentLoaded', function() {
     const newsletterForm = document.querySelector('.newsletter-form');
     
@@ -309,8 +377,8 @@ document.addEventListener('DOMContentLoaded', function() {
 let lastScrollY = window.scrollY;
 const header = document.querySelector('header');
 
-window.addEventListener('scroll', debounce(() => {
-    if (header) {
+if (header) {
+    window.addEventListener('scroll', debounce(() => {
         const currentScrollY = window.scrollY;
         
         if (currentScrollY > lastScrollY && currentScrollY > 100) {
@@ -322,8 +390,8 @@ window.addEventListener('scroll', debounce(() => {
         }
         
         lastScrollY = currentScrollY;
-    }
-}, 100));
+    }, 100));
+}
 
 // Инициализация всех функций при загрузке
 document.addEventListener('DOMContentLoaded', function() {
