@@ -16,18 +16,17 @@
                     <i class="fas fa-laptop-code"></i>
                     Цифровая грамотность
                 </div>
-                
-                <ul class="nav-links">
-                    <li><a href="#about">О курсе</a></li>
-                    <li><a href="modules.html">Модули</a></li>
-                    <li><a href="#reviews">Отзывы</a></li>
-                    <li><a href="#contact">Запись</a></li>
-                </ul>
-                
-          
-                <button class="mobile-menu-btn" style="display: none;">
-                    <i class="fas fa-bars"></i>
+
+                <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
                 </button>
+
+                <ul class="nav-links">
+                    <li><a href="index.html#about">О курсе</a></li>
+                    <li><a href="modules.html#modules-hero">Модули</a></li>
+                    <li><a href="index.html#reviews">Отзывы</a></li>
+                    <li><a href="index.html#contact">Запись</a></li>
+                </ul>
             </nav>
         </div>
     </header>
@@ -39,7 +38,7 @@
                 <i class="fas fa-arrow-left"></i> Назад на главную
             </a>
             
-            <div class="modules-hero">
+            <div class="modules-hero" id="modules-hero">
                 <h1>Программа курса</h1>
                 <p>6 практических модулей, которые превратят технологии из страшной загадки в ваших верных помощников</p>
             </div>
@@ -299,31 +298,14 @@
 
             <!-- Кнопка записи -->
             <div style="text-align: center; margin-top: 3rem;">
-                <a href="index.html#contact" class="btn">Записаться на курс</a>
+                <a href="index.html" class="btn">Записаться на курс</a>
             </div>
         </div>
     </section>
 
-    <script>
-        // Анимация появления элементов при скролле
-        const fadeElements = document.querySelectorAll('.fade-in');
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = 1;
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, { threshold: 0.1 });
 
-        fadeElements.forEach(el => {
-            el.style.opacity = 0;
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-            observer.observe(el);
-        });
-    </script>
+    <script src="script.js"></script>
+
 </body>
 <!-- Добавь этот код перед закрывающим тегом </body> -->
 
@@ -360,45 +342,4 @@
     
 </style>
 
-<script>
-    // Помощник для записи
-    const assistantFab = document.querySelector('.assistant-fab');
-    const assistantChat = document.querySelector('.assistant-chat');
-    const closeChat = document.querySelector('.close-chat');
-    const tgBtn = document.querySelector('.tg-btn');
-    const whatsappBtn = document.querySelector('.whatsapp-btn');
-
-    // Открыть/закрыть чат
-    assistantFab.addEventListener('click', () => {
-        assistantChat.classList.toggle('active');
-    });
-
-    closeChat.addEventListener('click', () => {
-        assistantChat.classList.remove('active');
-    });
-
-    // Закрыть чат при клике вне его
-    document.addEventListener('click', (e) => {
-        if (!assistantChat.contains(e.target) && !assistantFab.contains(e.target)) {
-            assistantChat.classList.remove('active');
-        }
-    });
-
-    // Ссылки для мессенджеров (ЗАМЕНИ НА СВОИ)
-    tgBtn.addEventListener('click', () => {
-        window.open('https://t.me/your_telegram_username', '_blank');
-    });
-
-    whatsappBtn.addEventListener('click', () => {
-        window.open('https://wa.me/79991234567', '_blank');
-    });
-
-    // Авто-открытие через 10 секунд
-    setTimeout(() => {
-        if (!localStorage.getItem('assistantShown')) {
-            assistantChat.classList.add('active');
-            localStorage.setItem('assistantShown', 'true');
-        }
-    }, 10000);
-</script>
 </html>
