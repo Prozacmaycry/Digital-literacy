@@ -1,65 +1,49 @@
-// script.js - полный JavaScript код для сайта
 
-// Мобильное меню
+// Мобильное меню - ИСПРАВЛЕННАЯ ВЕРСИЯ
 document.addEventListener('DOMContentLoaded', function() {
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    const navLinks = document.querySelector('.nav-links');
-    const menuOverlay = document.querySelector('.menu-overlay');
-    const body = document.body;
+    const menuBtn = document.querySelector('.mobile-menu-btn');
+    const nav = document.querySelector('.nav-links');
+    const overlay = document.querySelector('.menu-overlay');
+    
+    // Создаем кнопку закрытия
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'nav-close-btn';
+    closeBtn.innerHTML = '&times;';
+    closeBtn.style.cssText = `
+        position: absolute;
+        top: 25px;
+        right: 25px;
+        font-size: 2rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: var(--primary-orange);
+        z-index: 1001;
+    `;
+    
+    // Вставляем кнопку закрытия в меню
+    nav.insertBefore(closeBtn, nav.firstChild);
 
-    function toggleMenu() {
-        const isActive = navLinks.classList.contains('active');
-        
-        mobileMenuBtn.classList.toggle('active', !isActive);
-        navLinks.classList.toggle('active', !isActive);
-        menuOverlay.classList.toggle('active', !isActive);
-        
-        // Блокируем скролл
-        if (!isActive) {
-            body.style.overflow = 'hidden';
-            body.style.position = 'fixed';
-            body.style.width = '100%';
-        } else {
-            body.style.overflow = '';
-            body.style.position = '';
-            body.style.width = '';
-        }
+    function openMenu() {
+        nav.classList.add('active');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Блокируем скролл
     }
 
     function closeMenu() {
-        mobileMenuBtn.classList.remove('active');
-        navLinks.classList.remove('active');
-        menuOverlay.classList.remove('active');
-        body.style.overflow = '';
-        body.style.position = '';
-        body.style.width = '';
+        nav.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = ''; // Разблокируем скролл
     }
 
-    // Клик по бургеру
-    if (mobileMenuBtn) {
-        mobileMenuBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            toggleMenu();
-        });
-    }
+    // События
+    menuBtn.addEventListener("click", openMenu);
+    closeBtn.addEventListener("click", closeMenu);
+    overlay.addEventListener("click", closeMenu);
 
-    // Клик по оверлею
-    if (menuOverlay) {
-        menuOverlay.addEventListener('click', closeMenu);
-    }
-
-    // Клик по ссылкам меню
-    if (navLinks) {
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', closeMenu);
-        });
-    }
-
-    // Закрытие при ресайзе на десктоп
-    window.addEventListener('resize', function() {
-        if (window.innerWidth > 768) {
-            closeMenu();
-        }
+    // Закрытие меню при клике на ссылку
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', closeMenu);
     });
 });
 
@@ -181,20 +165,68 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Плавный скролл к якорям
+// Плавный скролл к якорям и обработка межстраничных переходов
 document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    document.querySelectorAll('a[href*="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+            const href = this.getAttribute('href');
+            
+            // Если ссылка ведет на другую страницу с якорем (например: index.html#about)
+            if (href.includes('.html#')) {
+                // Сохраняем информацию о переходе
+                const [page, hash] = href.split('#');
+                if (page === window.location.pathname.split('/').pop() || page === '') {
+                    // Текущая страница - обрабатываем как якорь
+                    e.preventDefault();
+                    const target = document.querySelector('#' + hash);
+                    if (target) {
+                        const headerHeight = document.querySelector('header').offsetHeight;
+                        const targetPosition = target.offsetTop - headerHeight - 20;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                } else {
+                    // Другая страница - позволяем браузеру обработать переход
+                    // Якорь автоматически сработает при загрузке страницы
+                }
+            }
+            // Если это якорь на текущей странице
+            else if (href.startsWith('#') && document.querySelector(href)) {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    const headerHeight = document.querySelector('header').offsetHeight;
+                    const targetPosition = target.offsetTop - headerHeight - 20;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
             }
         });
     });
+});
+
+// Обработка якоря при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+    // Ждем полной загрузки страницы
+    setTimeout(() => {
+        const hash = window.location.hash;
+        if (hash && document.querySelector(hash)) {
+            const target = document.querySelector(hash);
+            const headerHeight = document.querySelector('header').offsetHeight;
+            const targetPosition = target.offsetTop - headerHeight - 20;
+            
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        }
+    }, 100);
 });
 
 // EmailJS обработка формы signup-form
@@ -373,25 +405,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Анимация хедера при скролле (улучшенная)
-let lastScrollY = window.scrollY;
-const header = document.querySelector('header');
-
-if (header) {
-    window.addEventListener('scroll', debounce(() => {
-        const currentScrollY = window.scrollY;
-        
-        if (currentScrollY > lastScrollY && currentScrollY > 100) {
-            // Скролл вниз
-            header.style.transform = 'translateY(-100%)';
-        } else {
-            // Скролл вверх
-            header.style.transform = 'translateY(0)';
-        }
-        
-        lastScrollY = currentScrollY;
-    }, 100));
-}
 
 // Инициализация всех функций при загрузке
 document.addEventListener('DOMContentLoaded', function() {
@@ -399,4 +412,26 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Добавляем класс для CSS анимаций после загрузки
     document.body.classList.add('loaded');
+});
+
+// Обработка якорных ссылок при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+    // Проверяем, есть ли якорь в URL
+    const hash = window.location.hash;
+    if (hash) {
+        setTimeout(() => {
+            const targetElement = document.querySelector(hash);
+            if (targetElement) {
+                // Прокручиваем к элементу
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                
+                // Добавляем небольшой отступ от хедера
+                const headerHeight = document.querySelector('header').offsetHeight;
+                window.scrollBy(0, -headerHeight - 20);
+            }
+        }, 100);
+    }
 });
