@@ -114,56 +114,89 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
-
-// Помощник для записи
+// УНИВЕРСАЛЬНЫЙ ПОМОЩНИК ДЛЯ ВСЕХ СТРАНИЦ
 document.addEventListener('DOMContentLoaded', function() {
+    initializeAssistant();
+});
+
+function initializeAssistant() {
     const assistantFab = document.querySelector('.assistant-fab');
     const assistantChat = document.querySelector('.assistant-chat');
+    
+    if (!assistantFab || !assistantChat) return;
+    
     const closeChat = document.querySelector('.close-chat');
     const tgBtn = document.querySelector('.tg-btn');
     const whatsappBtn = document.querySelector('.whatsapp-btn');
 
-    if (assistantFab && assistantChat) {
-        // Открыть/закрыть чат
-        assistantFab.addEventListener('click', () => {
-            assistantChat.classList.toggle('active');
+    // Открыть/закрыть чат
+    assistantFab.addEventListener('click', () => {
+        assistantChat.classList.toggle('active');
+    });
+
+    if (closeChat) {
+        closeChat.addEventListener('click', () => {
+            assistantChat.classList.remove('active');
         });
-
-        if (closeChat) {
-            closeChat.addEventListener('click', () => {
-                assistantChat.classList.remove('active');
-            });
-        }
-
-        // Закрыть чат при клике вне его
-        document.addEventListener('click', (e) => {
-            if (!assistantChat.contains(e.target) && !assistantFab.contains(e.target)) {
-                assistantChat.classList.remove('active');
-            }
-        });
-
-        // Ссылки для мессенджеров
-        if (tgBtn) {
-            tgBtn.addEventListener('click', () => {
-                window.open('https://t.me/@notserch', '_blank');
-            });
-        }
-
-        if (whatsappBtn) {
-            whatsappBtn.addEventListener('click', () => {
-                window.open('https://wa.me/77475509819', '_blank');
-            });
-        }
-
-        // Авто-открытие через 10 секунд
-        setTimeout(() => {
-            if (!localStorage.getItem('assistantShown')) {
-                assistantChat.classList.add('active');
-                localStorage.setItem('assistantShown', 'true');
-            }
-        }, 10000);
     }
+
+    // Закрыть чат при клике вне его
+    document.addEventListener('click', (e) => {
+        if (!assistantChat.contains(e.target) && !assistantFab.contains(e.target)) {
+            assistantChat.classList.remove('active');
+        }
+    });
+
+    // Ссылки для мессенджеров
+    if (tgBtn) {
+        tgBtn.addEventListener('click', () => {
+            window.open('https://t.me/notserch', '_blank');
+        });
+    }
+
+    if (whatsappBtn) {
+        whatsappBtn.addEventListener('click', () => {
+            window.open('https://wa.me/77475509819', '_blank');
+        });
+    }
+
+    // Авто-открытие через 10 секунд
+    setTimeout(() => {
+        if (!localStorage.getItem('assistantShown')) {
+            assistantChat.classList.add('active');
+            localStorage.setItem('assistantShown', 'true');
+        }
+    }, 10000);
+}
+
+// Автоматическое заполнение формы при выборе тарифа
+document.addEventListener('DOMContentLoaded', function() {
+    initializePricingButtons();
 });
+
+function initializePricingButtons() {
+    const pricingButtons = document.querySelectorAll('[data-plan]');
+    
+    pricingButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            const plan = this.getAttribute('data-plan');
+            const price = this.getAttribute('data-price');
+            
+            // Сохраняем выбранный тариф в localStorage
+            localStorage.setItem('selectedPlan', plan);
+            localStorage.setItem('selectedPrice', price);
+            
+            console.log(`Выбран тариф: ${plan}, цена: ${price} тг`);
+        });
+    });
+    
+    // Автозаполнение формы при загрузке страницы с формой
+    autoFillForm();
+}
+
+
+
+
 
 // Плавный скролл к якорям и обработка межстраничных переходов
 document.addEventListener('DOMContentLoaded', function() {
@@ -236,9 +269,17 @@ document.addEventListener('DOMContentLoaded', function() {
     
     const signupForm = document.getElementById('signup-form');
     
-    if (signupForm) {
+        if (signupForm) {
         signupForm.addEventListener('submit', function(e) {
             e.preventDefault();
+            
+            // Добавляем информацию о выбранном тарифе
+            const selectedPlan = document.getElementById('selected-plan')?.value || 'Не выбран';
+            const planField = document.createElement('input');
+            planField.type = 'hidden';
+            planField.name = 'selected_plan';
+            planField.value = selectedPlan;
+            this.appendChild(planField);
             
             const submitBtn = document.getElementById('submit-btn');
             const originalText = submitBtn.textContent;
@@ -433,5 +474,131 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.scrollBy(0, -headerHeight - 20);
             }
         }, 100);
+    }
+});
+
+// Функция для отправки в мессенджеры
+function sendToMessenger(button) {
+    const plan = button.getAttribute('data-plan');
+    const message = `Здравствуйте! Хочу приобрести ${plan}. Пожалуйста, свяжитесь со мной для оформления.`;
+    
+    // Показываем выбор мессенджера
+    showMessengerChoice(message, plan);
+}
+
+function showMessengerChoice(message, plan) {
+    // Создаем модальное окно
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+    `;
+    
+    modal.innerHTML = `
+        <div style="
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        ">
+            <h3 style="color: #2E5BFF; margin-bottom: 1rem;">Выберите способ связи</h3>
+            <p style="margin-bottom: 1.5rem; color: #666;">Вы выбрали: <strong>${plan}</strong></p>
+            
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <button onclick="openTelegram('${message}')" style="
+                    background: #0088cc;
+                    color: white;
+                    border: none;
+                    padding: 1rem 1.5rem;
+                    border-radius: 10px;
+                    font-size: 1rem;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 0.5rem;
+                ">
+                    <i class="fab fa-telegram"></i>
+                    Написать в Telegram
+                </button>
+                
+                <button onclick="openWhatsApp('${message}')" style="
+                    background: #25D366;
+                    color: white;
+                    border: none;
+                    padding: 1rem 1.5rem;
+                    border-radius: 10px;
+                    font-size: 1rem;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 0.5rem;
+                ">
+                    <i class="fab fa-whatsapp"></i>
+                    Написать в WhatsApp
+                </button>
+                
+                <button onclick="closeModal()" style="
+                    background: #6c757d;
+                    color: white;
+                    border: none;
+                    padding: 0.8rem 1.5rem;
+                    border-radius: 10px;
+                    font-size: 0.9rem;
+                    cursor: pointer;
+                    margin-top: 0.5rem;
+                ">
+                    Отмена
+                </button>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    
+    // Закрытие по клику вне окна
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+}
+
+// Функции для открытия мессенджеров
+function openTelegram(message) {
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://t.me/notserch?text=${encodedMessage}`, '_blank');
+    closeModal();
+}
+
+function openWhatsApp(message) {
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://wa.me/77475509819?text=${encodedMessage}`, '_blank');
+    closeModal();
+}
+
+function closeModal() {
+    const modal = document.querySelector('div[style*="position: fixed"]');
+    if (modal) {
+        modal.remove();
+    }
+}
+
+// Закрытие по ESC
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeModal();
     }
 });
