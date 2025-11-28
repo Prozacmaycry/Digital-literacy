@@ -232,30 +232,13 @@ nav {
             object-fit: cover;
             border-radius: 50%;
             
-            /* Вариант 1: Фильтр яркости */
+           
             filter: brightness(1.2);
             
-            /* Вариант 2: Фильтр контрастности + яркости (раскомментируйте если нужно) */
-            /* filter: brightness(1.1) contrast(1.1); */
-            
-            /* Вариант 3: Слегка обесцветить и высветлить (раскомментируйте если нужно) */
-            /* filter: brightness(1.15) saturate(0.9); */
+        
         }
         
-        /* Альтернативный вариант с наложением белого слоя поверх изображения */
-        /* .module-icon::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            pointer-events: none;
-        } */
-        
-        /* Вариант для темных иконок - более сильное высветление */
+       
         .module-icon.dark-icon img {
             filter: brightness(1.4);
         }
@@ -267,6 +250,213 @@ nav {
                 height: 50px;
             }
         }
+
+/* Стили для страницы цен */
+.pricing-hero {
+    background: var(--gradient-blue);
+    color: var(--white);
+    padding: 140px 0 60px;
+    text-align: center;
+}
+
+.pricing-hero-content h1 {
+    -webkit-text-fill-color: white;
+    background: transparent;
+    margin-bottom: 1rem;
+    font-size: 2.5rem;
+}
+
+.pricing-section {
+    padding: 80px 0;
+    background: var(--light-gray);
+}
+
+.pricing-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.pricing-card {
+    background: var(--white);
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    position: relative;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.pricing-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+.pricing-card.popular {
+    border-color: var(--primary-orange);
+}
+
+.popular-badge {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gradient-orange-glow);
+    color: white;
+    padding: 6px 15px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.pricing-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.pricing-header h3 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: var(--text-dark);
+}
+
+.price {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--primary-blue);
+    margin-bottom: 0.5rem;
+    line-height: 1;
+}
+
+.price span {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-light);
+}
+
+.pricing-header p {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.pricing-features {
+    margin-bottom: 2rem;
+    text-align: left;
+    flex-grow: 1;
+}
+
+
+.feature i {
+    color: var(--primary-orange);
+    width: 16px;
+    font-size: 0.9rem;
+}
+
+.feature span {
+    color: var(--text-dark);
+    font-size: 0.95rem;
+}
+
+.pricing-card .btn {
+    width: 100%;
+    margin-top: auto;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Блок гарантий */
+.guarantees {
+    padding: 60px 0;
+    background: var(--white);
+}
+
+.guarantees-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.guarantee-item {
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+.guarantee-item i {
+    font-size: 2.5rem;
+    color: var(--primary-blue);
+    margin-bottom: 1rem;
+    background: var(--light-gray);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+.guarantee-item h4 {
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.guarantee-item p {
+    color: var(--text-light);
+    line-height: 1.5;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .pricing-cards {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+    
+    .pricing-card {
+        padding: 1.5rem;
+    }
+    
+    .price {
+        font-size: 2rem;
+    }
+    
+    .pricing-hero-content h1 {
+        font-size: 2rem;
+    }
+    
+    .guarantees-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .pricing-hero {
+        padding: 120px 0 40px;
+    }
+    
+    .pricing-section {
+        padding: 50px 0;
+    }
+    
+    .guarantees {
+        padding: 40px 0;
+    }
+}
 
 /* Главный экран */
 .hero {
