@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Стоимость курса - Цифровая грамотность для взрослых</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-laptop-code"></i>
+                    Цифровая грамотность
+                </div>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="modules.html">Модули</a></li>
+                    <li><a href="pricing.html" >Стоимость</a></li>
+                    <li><a href="index.html#reviews">Отзывы</a></li>
+                    <li><a href="index.html#contact">Запись</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="menu-overlay"></div>
+
+    <section class="pricing-hero">
+        <div class="container">
+            <div class="pricing-hero-content">
+                <h1>Выберите формат обучения</h1>
+                <p>Инвестируйте в знания — это останется с вами навсегда</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing-section">
+        <div class="container">
+            <div class="pricing-cards">
+                <!-- Тариф 1 -->
+                <div class="pricing-card popular">
+                    <div class="popular-badge">Выгодно</div>
+                    <div class="pricing-header">
+                        <h3>Полный курс</h3>
+                        <div class="price">40 000 <span>тг</span></div>
+                        <p>12 занятий • 3 месяца</p>
+                    </div>
+                    <div class="pricing-features">
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Все 12 занятий курса</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Учебные материалы</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Сертификат об окончании</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Поддержка в чате</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-orange" 
+                            data-plan="Полный курс (40,000 тг)" 
+                            onclick="sendToMessenger(this)">
+                        Выбрать тариф
+                    </button>
+
+                </div>
+
+                <!-- Тариф 2 -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Помесячно</h3>
+                        <div class="price">15 000 <span>тг/мес</span></div>
+                        <p>4 занятия • 1 месяц</p>
+                    </div>
+                    <div class="pricing-features">
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>4 занятия в месяц</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Учебные материалы</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Гибкая оплата</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Поддержка в чате</span>
+                        </div>
+                    </div>
+                    <button class="btn" 
+                            data-plan="Помесячная оплата (15,000 тг/мес)" 
+                            onclick="sendToMessenger(this)">
+                        Выбрать тариф
+                    </button>
+
+                </div>
+
+                <!-- Тариф 3 -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Подарок</h3>
+                        <div class="price">15 000 <span>тг</span></div>
+                        <p>Сертификат на 4 занятия</p>
+                    </div>
+                    <div class="pricing-features">
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>4 занятия для начала</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Красивый дизайн</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Год на активацию</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check"></i>
+                            <span>Идеальный подарок</span>
+                        </div>
+                    </div>
+                    <button class="btn" 
+                            data-plan="Подарочный сертификат (15,000 тг)" 
+                            onclick="sendToMessenger(this)">
+                        Заказать
+                    </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Блок с гарантиями -->
+    <section class="guarantees">
+        <div class="container">
+            <div class="guarantees-grid">
+                <div class="guarantee-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <h4>Гарантия возврата</h4>
+                    <p>Вернем деньги, если не понравится после первого занятия</p>
+                </div>
+                <div class="guarantee-item">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h4>Сертификат</h4>
+                    <p>Получите документ об окончании курса</p>
+                </div>
+                <div class="guarantee-item">
+                    <i class="fas fa-users"></i>
+                    <h4>Маленькие группы</h4>
+                    <p>Не более 8 человек для максимального внимания</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <i class="fas fa-laptop-code"></i>
+                    Цифровая грамотность
+                </div>
+                <p class="footer-description">
+                    Осваивайте технологии с уверенностью и комфортом. 
+                    Мы помогаем взрослым стать уверенными пользователями 
+                    цифровых технологий.
+                </p>
+                <div class="footer-social">
+                    <a href="#" class="social-link"><i class="fab fa-vk"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Навигация</h3>
+                <ul class="footer-links">
+                    <li><a href="#about">О курсе</a></li>
+                    <li><a href="modules.html">Модули</a></li>
+                    <li><a href="#reviews">Отзывы</a></li>
+                    <li><a href="#contact">Запись</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Контакты</h3>
+                <div class="footer-contact">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+7 (747) 550-98-19</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>г. Павлодар ул. Чокина 25</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>info@digital-course.ru</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Пн-Пт: 9:00-18:00</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Рассылка</h3>
+                <div class="footer-newsletter">
+                    <p style="color: rgba(255,255,255,0.8); margin-bottom: 1rem; font-size: 0.9rem;">
+                        Подпишитесь на новости и акции
+                    </p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Ваш email" required>
+                        <button type="submit" class="btn">Подписаться</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="copyright">
+                © Цифровая грамотность для взрослых, 2023. Все права защищены.
+            </div>
+            <ul class="footer-bottom-links">
+                <li><a href="#">Политика конфиденциальности</a></li>
+                <li><a href="#">Пользовательское соглашение</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+<div class="assistant-fab">
+    <div class="assistant-icon">💬</div>
+</div>
+
+
+<div class="assistant-chat">
+    <div class="chat-header">
+        <h4>Помощник курса</h4>
+        <button class="close-chat">&times;</button>
+    </div>
+    <div class="chat-messages">
+        <div class="message assistant-message">
+            Привет! 👋 Хочешь записаться на курс или узнать подробности?
+        </div>
+    </div>
+    <div class="chat-actions">
+        <button class="chat-btn tg-btn">
+            <i class="fab fa-telegram"></i>
+            Написать в Telegram
+        </button>
+        <button class="chat-btn whatsapp-btn">
+            <i class="fab fa-whatsapp"></i>
+            Написать в WhatsApp
+        </button>
+    </div>
+</div>
+
+</html>
+
+    
+</body>
+</html>
