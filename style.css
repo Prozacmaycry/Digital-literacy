@@ -5,7 +5,16 @@
     box-sizing: border-box;
 }
 
-/* Обновленная цветовая палитра с современными градиентами */
+
+html {
+    scroll-behavior: smooth;
+}
+
+.no-smooth-scroll {
+    scroll-behavior: auto;
+}
+
+
 :root {
     --primary-orange: #FF6B35;
     --dark-orange: #E55A2B;
@@ -1637,6 +1646,93 @@ footer::after {
     display: none;
 }
 
+/* Стили для секции "О курсе" с иконками Font Awesome */
+.about-section .features .icon {
+    font-size: 2.5rem;
+    color: var(--primary-orange);
+    margin-bottom: 1.5rem;
+    height: 90px;
+    width: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 107, 0, 0.1);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.about-section .features .icon i {
+    font-size: 2.2rem;
+}
+
+
+
+/* Стили для секции "О курсе" с иконками Font Awesome - ИСПРАВЛЕННЫЕ */
+.about-section .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+    margin-top: 3rem;
+}
+
+.about-section .feature {
+    text-align: center;
+    padding: 2.5rem 2rem;
+    background: var(--white);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(255, 107, 53, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Центрируем все содержимое */
+}
+
+
+
+.about-section .features .icon {
+    font-size: 2.5rem;
+    color: var(--primary-orange);
+    margin-bottom: 1.5rem;
+    height: 90px;
+    width: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Центрируем иконку внутри круга */
+    background: rgba(255, 107, 0, 0.1);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.about-section .features .icon i {
+    font-size: 2.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+.about-section .feature h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: var(--text-dark);
+    text-align: center;
+    width: 100%;
+}
+
+.about-section .feature p {
+    color: var(--text-light);
+    line-height: 1.5;
+    text-align: center;
+    width: 100%;
+}
+
+/* Или если хотите более простой вариант: */
+.about-section .features .icon {
+    margin-left: auto;
+    margin-right: auto; /* Центрирование через auto margins */
+}
 /* Адаптивность */
 @media (max-width: 768px) {
     .mobile-menu-btn {
