@@ -198,69 +198,8 @@ function initializePricingButtons() {
 
 
 
-// Плавный скролл к якорям и обработка межстраничных переходов
-document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('a[href*="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            const href = this.getAttribute('href');
-            
-            // Если ссылка ведет на другую страницу с якорем (например: index.html#about)
-            if (href.includes('.html#')) {
-                // Сохраняем информацию о переходе
-                const [page, hash] = href.split('#');
-                if (page === window.location.pathname.split('/').pop() || page === '') {
-                    // Текущая страница - обрабатываем как якорь
-                    e.preventDefault();
-                    const target = document.querySelector('#' + hash);
-                    if (target) {
-                        const headerHeight = document.querySelector('header').offsetHeight;
-                        const targetPosition = target.offsetTop - headerHeight - 20;
-                        
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
-                    }
-                } else {
-                    // Другая страница - позволяем браузеру обработать переход
-                    // Якорь автоматически сработает при загрузке страницы
-                }
-            }
-            // Если это якорь на текущей странице
-            else if (href.startsWith('#') && document.querySelector(href)) {
-                e.preventDefault();
-                const target = document.querySelector(href);
-                if (target) {
-                    const headerHeight = document.querySelector('header').offsetHeight;
-                    const targetPosition = target.offsetTop - headerHeight - 20;
-                    
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-                }
-            }
-        });
-    });
-});
 
-// Обработка якоря при загрузке страницы
-document.addEventListener('DOMContentLoaded', function() {
-    // Ждем полной загрузки страницы
-    setTimeout(() => {
-        const hash = window.location.hash;
-        if (hash && document.querySelector(hash)) {
-            const target = document.querySelector(hash);
-            const headerHeight = document.querySelector('header').offsetHeight;
-            const targetPosition = target.offsetTop - headerHeight - 20;
-            
-            window.scrollTo({
-                top: targetPosition,
-                behavior: 'smooth'
-            });
-        }
-    }, 100);
-});
+
 
 // EmailJS обработка формы signup-form
 document.addEventListener('DOMContentLoaded', function() {
@@ -433,18 +372,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Сохранение позиции скролла при перезагрузке
-window.addEventListener('beforeunload', function() {
-    sessionStorage.setItem('scrollPosition', window.pageYOffset);
-});
 
-document.addEventListener('DOMContentLoaded', function() {
-    const scrollPosition = sessionStorage.getItem('scrollPosition');
-    if (scrollPosition) {
-        window.scrollTo(0, parseInt(scrollPosition));
-        sessionStorage.removeItem('scrollPosition');
-    }
-});
 
 
 // Инициализация всех функций при загрузке
@@ -455,27 +383,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.classList.add('loaded');
 });
 
-// Обработка якорных ссылок при загрузке страницы
-document.addEventListener('DOMContentLoaded', function() {
-    // Проверяем, есть ли якорь в URL
-    const hash = window.location.hash;
-    if (hash) {
-        setTimeout(() => {
-            const targetElement = document.querySelector(hash);
-            if (targetElement) {
-                // Прокручиваем к элементу
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-                
-                // Добавляем небольшой отступ от хедера
-                const headerHeight = document.querySelector('header').offsetHeight;
-                window.scrollBy(0, -headerHeight - 20);
-            }
-        }, 100);
-    }
-});
+
 
 // Функция для отправки в мессенджеры
 function sendToMessenger(button) {
@@ -601,4 +509,56 @@ document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         closeModal();
     }
+});
+
+// ===== ЧИСТАЯ И АККУРАТНАЯ ОБРАБОТКА ЯКОРЕЙ =====
+
+// Скролл с учетом высоты хедера
+function scrollToAnchor(hash) {
+    const target = document.querySelector(hash);
+    if (!target) return;
+
+    const headerHeight = document.querySelector('header')?.offsetHeight || 0;
+    const top = target.getBoundingClientRect().top + window.scrollY - headerHeight - 20;
+
+    window.scrollTo({ top, behavior: "smooth" });
+}
+
+// Переходы по якорям при клике
+document.addEventListener("click", function (e) {
+    const link = e.target.closest('a[href^="#"], a[href*=".html#"]');
+    if (!link) return;
+
+    const href = link.getAttribute("href");
+
+    // 1) Якорь на этой же странице
+    if (href.startsWith("#")) {
+        e.preventDefault();
+        scrollToAnchor(href);
+        return;
+    }
+
+    // 2) Переход на другую страницу с якорем
+    if (href.includes(".html#")) {
+        const [page, hash] = href.split("#");
+        localStorage.setItem("pendingAnchor", "#" + hash);
+        return; // браузер сам перейдёт на страницу
+    }
+});
+
+// Переходы на нужный блок после загрузки страницы
+document.addEventListener("DOMContentLoaded", () => {
+    const hashFromURL = window.location.hash;
+    const hashFromStorage = localStorage.getItem("pendingAnchor");
+
+    const hash = hashFromURL || hashFromStorage;
+    if (!hash) return;
+
+    // Убираем сохранённый якорь (чтобы не прыгало при обновлении)
+    localStorage.removeItem("pendingAnchor");
+
+    // Прокручиваем мягко к нужному элементу
+    setTimeout(() => {
+        scrollToAnchor(hash);
+    }, 50);
 });
