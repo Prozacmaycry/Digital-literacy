@@ -21,7 +21,7 @@
                 <ul class="nav-links">
                     <li><a href="index.html">Главная</a></li>
                     <li><a href="modules.html">Модули</a></li>
-                    <li><a href="pricing.html" >Стоимость</a></li>
+                    <li><a href="pricing.html#pricing">Стоимость</a></li>
                     <li><a href="index.html#reviews">Отзывы</a></li>
                     <li><a href="index.html#contact">Запись</a></li>
                 </ul>
@@ -40,7 +40,7 @@
         </div>
     </section>
 
-    <section class="pricing-section">
+    <section class="pricing-section" id="pricing">
         <div class="container">
             <div class="pricing-cards">
                 <!-- Тариф 1 -->
@@ -74,7 +74,6 @@
                             onclick="sendToMessenger(this)">
                         Выбрать тариф
                     </button>
-
                 </div>
 
                 <!-- Тариф 2 -->
@@ -107,7 +106,6 @@
                             onclick="sendToMessenger(this)">
                         Выбрать тариф
                     </button>
-
                 </div>
 
                 <!-- Тариф 3 -->
@@ -140,6 +138,7 @@
                             onclick="sendToMessenger(this)">
                         Заказать
                     </button>
+                </div>
             </div>
         </div>
     </section>
@@ -168,115 +167,112 @@
     </section>
 
     <footer>
-    <div class="container">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <div class="footer-logo">
-                    <i class="fas fa-laptop-code"></i>
-                    Цифровая грамотность
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <i class="fas fa-laptop-code"></i>
+                        Цифровая грамотность
+                    </div>
+                    <p class="footer-description">
+                        Осваивайте технологии с уверенностью и комфортом. 
+                        Мы помогаем взрослым стать уверенными пользователями 
+                        цифровых технологий.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link"><i class="fab fa-vk"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    </div>
                 </div>
-                <p class="footer-description">
-                    Осваивайте технологии с уверенностью и комфортом. 
-                    Мы помогаем взрослым стать уверенными пользователями 
-                    цифровых технологий.
-                </p>
-                <div class="footer-social">
-                    <a href="#" class="social-link"><i class="fab fa-vk"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                
+                <div class="footer-column">
+                    <h3>Навигация</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html#about">О курсе</a></li>
+                        <li><a href="modules.html">Модули</a></li>
+                        <li><a href="pricing.html#pricing">Стоимость</a></li>
+                        <li><a href="index.html#reviews">Отзывы</a></li>
+                        <li><a href="index.html#contact">Запись</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <div class="footer-contact">
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+7 (747) 550-98-19</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>г. Павлодар ул. Чокина 25</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>info@digital-course.ru</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Пн-Пт: 9:00-18:00</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Рассылка</h3>
+                    <div class="footer-newsletter">
+                        <p style="color: rgba(255,255,255,0.8); margin-bottom: 1rem; font-size: 0.9rem;">
+                            Подпишитесь на новости и акции
+                        </p>
+                        <form class="newsletter-form">
+                            <input type="email" placeholder="Ваш email" required>
+                            <button type="submit" class="btn">Подписаться</button>
+                        </form>
+                    </div>
                 </div>
             </div>
             
-            <div class="footer-column">
-                <h3>Навигация</h3>
-                <ul class="footer-links">
-                    <li><a href="#about">О курсе</a></li>
-                    <li><a href="modules.html">Модули</a></li>
-                    <li><a href="#reviews">Отзывы</a></li>
-                    <li><a href="#contact">Запись</a></li>
+            <div class="footer-bottom">
+                <div class="copyright">
+                    © Цифровая грамотность для взрослых, 2023. Все права защищены.
+                </div>
+                <ul class="footer-bottom-links">
+                    <li><a href="#">Политика конфиденциальности</a></li>
+                    <li><a href="#">Пользовательское соглашение</a></li>
                 </ul>
             </div>
-            
-            <div class="footer-column">
-                <h3>Контакты</h3>
-                <div class="footer-contact">
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <span>+7 (747) 550-98-19</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>г. Павлодар ул. Чокина 25</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <span>info@digital-course.ru</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-clock"></i>
-                        <span>Пн-Пт: 9:00-18:00</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="footer-column">
-                <h3>Рассылка</h3>
-                <div class="footer-newsletter">
-                    <p style="color: rgba(255,255,255,0.8); margin-bottom: 1rem; font-size: 0.9rem;">
-                        Подпишитесь на новости и акции
-                    </p>
-                    <form class="newsletter-form">
-                        <input type="email" placeholder="Ваш email" required>
-                        <button type="submit" class="btn">Подписаться</button>
-                    </form>
-                </div>
-            </div>
         </div>
-        
-        <div class="footer-bottom">
-            <div class="copyright">
-                © Цифровая грамотность для взрослых, 2023. Все права защищены.
-            </div>
-            <ul class="footer-bottom-links">
-                <li><a href="#">Политика конфиденциальности</a></li>
-                <li><a href="#">Пользовательское соглашение</a></li>
-            </ul>
-        </div>
-    </div>
-</footer>
+    </footer>
 
-<script src="script.js"></script>
-</body>
-<div class="assistant-fab">
-    <div class="assistant-icon">💬</div>
-</div>
-
-
-<div class="assistant-chat">
-    <div class="chat-header">
-        <h4>Помощник курса</h4>
-        <button class="close-chat">&times;</button>
-    </div>
-    <div class="chat-messages">
-        <div class="message assistant-message">
-            Привет! 👋 Хочешь записаться на курс или узнать подробности?
-        </div>
-    </div>
-    <div class="chat-actions">
-        <button class="chat-btn tg-btn">
-            <i class="fab fa-telegram"></i>
-            Написать в Telegram
-        </button>
-        <button class="chat-btn whatsapp-btn">
-            <i class="fab fa-whatsapp"></i>
-            Написать в WhatsApp
-        </button>
-    </div>
-</div>
-
-</html>
-
+    <script src="script.js"></script>
     
+    <div class="assistant-fab">
+        <div class="assistant-icon">💬</div>
+    </div>
+
+    <div class="assistant-chat">
+        <div class="chat-header">
+            <h4>Помощник курса</h4>
+            <button class="close-chat">&times;</button>
+        </div>
+        <div class="chat-messages">
+            <div class="message assistant-message">
+                Привет! 👋 Хочешь записаться на курс или узнать подробности?
+            </div>
+        </div>
+        <div class="chat-actions">
+            <button class="chat-btn tg-btn">
+                <i class="fab fa-telegram"></i>
+                Написать в Telegram
+            </button>
+            <button class="chat-btn whatsapp-btn">
+                <i class="fab fa-whatsapp"></i>
+                Написать в WhatsApp
+            </button>
+        </div>
+    </div>
+
 </body>
 </html>
