@@ -6,6 +6,7 @@
     <title>Модули курса - Цифровая грамотность для взрослых</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="modules.css">
 </head>
 <body>
     <!-- Шапка -->
@@ -21,8 +22,8 @@
                 </button>
                 <ul class="nav-links">
                     <li><a href="index.html">Главная</a></li>
-                    <li><a href="modules.html">Модули</a></li>
-                    <li><a href="pricing.html" >Стоимость</a></li>
+                    <li><a href="modules.html" class="active">Модули</a></li>
+                    <li><a href="pricing.html">Стоимость</a></li>
                     <li><a href="index.html#reviews">Отзывы</a></li>
                     <li><a href="index.html#contact">Запись</a></li>
                 </ul>
@@ -30,7 +31,7 @@
         </div>
     </header>
 
- <!-- Страница модулей -->
+    <!-- Страница модулей -->
     <section class="modules-page">
         <div class="container">
             <a href="index.html" class="back-button">
@@ -39,274 +40,585 @@
             
             <div class="modules-hero" id="modules-hero">
                 <h1>Программа курса</h1>
-                <p>6 практических модулей, которые превратят технологии из страшной загадки в ваших верных помощников</p>
+                <p>9 модулей, разделенных на 3 уровня сложности. Начните с первого модуля и идите к вершинам цифровой грамотности!</p>
             </div>
 
-            <!-- Модуль 1 -->
-            <div class="module-detail fade-in">
-                <div class="module-header">
-                    <div class="module-icon">
-                        <img src="images/icons/1.png" alt="Смартфон">
+            <!-- Прогресс-бар уровней -->
+            <div class="course-progress" id="course-progress">
+                <div class="progress-track">
+                    <div class="progress-step" data-step="1" data-target="beginner-level">
+                        <div class="step-circle">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <div class="step-label">Начальный<br>уровень</div>
+                        <div class="step-desc">Модули 1-3</div>
                     </div>
-                    <div class="module-title">
-                        <h3>Модуль 1: Ваш смартфон — лучший помощник</h3>
-                        <p>Освоим базовые функции вашего устройства</p>
+                    
+                    <div class="progress-line"></div>
+                    
+                    <div class="progress-step" data-step="2" data-target="intermediate-level">
+                        <div class="step-circle">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="step-label">Уверенный<br>пользователь</div>
+                        <div class="step-desc">Модули 4-6</div>
                     </div>
-                    <div class="module-duration">2 занятия</div>
-                </div>
-                <div class="module-content">
-                    <div class="module-topics">
-                        <h4><i class="fas fa-list-check"></i> Что изучим:</h4>
-                        <ul>
-                            <li>Включение, выключение, блокировка экрана</li>
-                            <li>Зарядка устройства и экономия батареи</li>
-                            <li>Регулировка громкости, яркости, шрифта</li>
-                            <li>Настройки под себя: крупные иконки, удобный шрифт</li>
-                            <li>Установка и удаление приложений</li>
-                            <li>Создание папок и организация рабочего стола</li>
-                            <li>Разница между Android и iPhone</li>
-                        </ul>
-                    </div>
-                    <div class="module-skills">
-                        <h4><i class="fas fa-star"></i> Вы научитесь:</h4>
-                        <ul>
-                            <li>Уверенно управлять смартфоном</li>
-                            <li>Настраивать устройство под свои нужды</li>
-                            <li>Свободно ориентироваться в меню</li>
-                            <li>Устанавливать нужные приложения</li>
-                            <li>Экономить заряд батареи</li>
-                        </ul>
-                    </div>
-                    <div class="module-result">
-                        <h4><i class="fas fa-flag-checkered"></i> Результат модуля:</h4>
-                        <p>Вы перестанете бояться своего телефона и начнете использовать его базовые функции с уверенностью</p>
+                    
+                    <div class="progress-line"></div>
+                    
+                    <div class="progress-step" data-step="3" data-target="advanced-level">
+                        <div class="step-circle">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <div class="step-label">Продвинутый<br>уровень</div>
+                        <div class="step-desc">Модули 7-9</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Модуль 2 -->
-            <div class="module-detail fade-in">
-                <div class="module-header">
-                    <div class="module-icon">
-                        <img src="images/icons/2.png" alt="Общение">
-                    </div>
-                    <div class="module-title">
-                        <h3>Модуль 2: Общение без границ</h3>
-                        <p>Осваиваем современные способы связи</p>
-                    </div>
-                    <div class="module-duration">2 занятия</div>
-                </div>
-                <div class="module-content">
-                    <div class="module-topics">
-                        <h4><i class="fas fa-list-check"></i> Что изучим:</h4>
-                        <ul>
-                            <li>Звонки, контакты, история вызовов</li>
-                            <li>Отправка и получение SMS сообщений</li>
-                            <li>WhatsApp: установка, регистрация, чаты</li>
-                            <li>Отправка фото, видео и голосовых сообщений</li>
-                            <li>Создание групповых чатов с семьей</li>
-                            <li>Видеозвонки детям и внукам</li>
-                            <li>Telegram как альтернатива WhatsApp</li>
-                        </ul>
-                    </div>
-                    <div class="module-skills">
-                        <h4><i class="fas fa-star"></i> Вы научитесь:</h4>
-                        <ul>
-                            <li>Свободно общаться через мессенджеры</li>
-                            <li>Делать качественные видеозвонки</li>
-                            <li>Создавать семейные чаты</li>
-                            <li>Отправлять фото и документы</li>
-                            <li>Настраивать уведомления</li>
-                        </ul>
-                    </div>
-                    <div class="module-features">
-                        <div class="feature-item">
-                            <i class="fas fa-video"></i>
-                            <span>Видеозвонки</span>
+
+            <!-- ========== НАЧАЛЬНЫЙ УРОВЕНЬ (1-3) ========== -->
+            <div class="level-section" id="beginner-level">
+                <div class="level-header">
+                    <div class="level-title">
+                        <div class="level-icon" style="background: var(--gradient-blue-bright);">
+                            <i class="fas fa-seedling"></i>
                         </div>
-                        <div class="feature-item">
-                            <i class="fas fa-image"></i>
-                            <span>Отправка фото</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-users"></i>
-                            <span>Групповые чаты</span>
+                        <div>
+                            <h2>Начальный уровень</h2>
+                            <p class="level-subtitle">Модули 1-3 • Основы работы со смартфоном и интернетом</p>
+                            <div class="level-badge">Базовые навыки</div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Модуль 3 -->
-            <div class="module-detail fade-in">
-                <div class="module-header">
-                    <div class="module-icon">
-                        <img src="images/icons/3.png" alt="Интернет">
-                    </div>
-                    <div class="module-title">
-                        <h3>Модуль 3: Выходим в интернет</h3>
-                        <p>Осваиваем всемирную паутину</p>
-                    </div>
-                    <div class="module-duration">2 занятия</div>
-                </div>
-                <div class="module-content">
-                    <div class="module-topics">
-                        <h4><i class="fas fa-list-check"></i> Что изучим:</h4>
-                        <ul>
-                            <li>Что такое браузер и как им пользоваться</li>
-                            <li>Подключение к Wi-Fi и мобильному интернету</li>
-                            <li>Поиск информации: рецепты, погода, новости</li>
-                            <li>Сохранение сайтов в закладки</li>
-                            <li>Вход на сайты через логин и пароль</li>
-                            <li>Безопасный серфинг в интернете</li>
-                            <li>Поиск лекарств в аптеках</li>
-                        </ul>
-                    </div>
-                    <div class="module-skills">
-                        <h4><i class="fas fa-star"></i> Вы научитесь:</h4>
-                        <ul>
-                            <li>Находить любую информацию в интернете</li>
-                            <li>Безопасно пользоваться браузером</li>
-                            <li>Сохранять полезные сайты</li>
-                            <li>Различать надежные и ненадежные сайты</li>
-                            <li>Искать товары и услуги</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Модуль 4 -->
-            <div class="module-detail fade-in">
-                <div class="module-header">
-                    <div class="module-icon">
-                        <img src="images/icons/4.png" alt="Платежи">
-                    </div>
-                    <div class="module-title">
-                        <h3>Модуль 4: Электронные деньги и платежи</h3>
-                        <p>Осваиваем современные финансовые инструменты</p>
-                    </div>
-                    <div class="module-duration">2 занятия</div>
-                </div>
-                <div class="module-content">
-                    <div class="module-topics">
-                        <h4><i class="fas fa-list-check"></i> Что изучим:</h4>
-                        <ul>
-                            <li>Что такое онлайн-банкинг</li>
-                            <li>Оплата коммунальных услуг без очередей</li>
-                            <li>Пополнение телефона и интернета</li>
-                            <li>Денежные переводы родственникам</li>
-                            <li>Платежи по QR-коду (Kaspi, СБП)</li>
-                            <li>Безопасность при онлайн-платежах</li>
-                            <li>Контроль расходов через приложение</li>
-                        </ul>
-                    </div>
-                    <div class="module-skills">
-                        <h4><i class="fas fa-star"></i> Вы научитесь:</h4>
-                        <ul>
-                            <li>Оплачивать ЖКХ и услуги онлайн</li>
-                            <li>Делать денежные переводы</li>
-                            <li>Платить по QR-кодам</li>
-                            <li>Безопасно использовать банковские приложения</li>
-                            <li>Контролировать свои финансы</li>
-                        </ul>
-                    </div>
-                    <div class="module-features">
-                        <div class="feature-item">
-                            <i class="fas fa-bolt"></i>
-                            <span>Мгновенные платежи</span>
+                
+                <div class="level-modules-container">
+                    <!-- Модуль 1 -->
+                    <div class="module-detail fade-in">
+                        <div class="module-header">
+                            <div class="module-icon">
+                                <img src="images/icons/1.png" alt="Смартфон">
+                            </div>
+                            <div class="module-title">
+                                <h3>Модуль 1: Ваш смартфон — лучший помощник</h3>
+                                <p>Освоим базовые функции вашего устройства</p>
+                            </div>
+                            <div class="module-duration">2 занятия</div>
                         </div>
-                        <div class="feature-item">
-                            <i class="fas fa-qrcode"></i>
-                            <span>QR-платежи</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-shield-alt"></i>
-                            <span>Безопасность</span>
+                        <div class="module-content">
+                            <div class="module-topics">
+                                <h4><i class="fas fa-list-check"></i> Что изучим:</h4>
+                                <ul>
+                                    <li>Включение, выключение, блокировка экрана</li>
+                                    <li>Зарядка устройства и экономия батареи</li>
+                                    <li>Регулировка громкости, яркости, шрифта</li>
+                                    <li>Настройки под себя: крупные иконки, удобный шрифт</li>
+                                    <li>Подключение к Wi-Fi и мобильному интернету</li>
+                                    <li>Установка и удаление приложений</li>
+                                    <li>Создание папок и организация рабочего стола</li>
+                                    <li>Разница между Android и iPhone</li>
+                                </ul>
+                            </div>
+                            <div class="module-skills">
+                                <h4><i class="fas fa-star"></i> Вы научитесь:</h4>
+                                <ul>
+                                    <li>Уверенно управлять смартфоном</li>
+                                    <li>Настраивать устройство под свои нужды</li>
+                                    <li>Свободно ориентироваться в меню</li>
+                                    <li>Устанавливать нужные приложения</li>
+                                    <li>Экономить заряд батареи</li>
+                                </ul>
+                            </div>
+                            <div class="module-result">
+                                <h4><i class="fas fa-flag-checkered"></i> Результат модуля:</h4>
+                                <p>Вы перестанете бояться своего телефона и начнете использовать его базовые функции с уверенностью</p>
+                            </div>
                         </div>
                     </div>
+
+                    <!-- Модуль 2 -->
+                    <div class="module-detail fade-in">
+                        <div class="module-header">
+                            <div class="module-icon">
+                                <img src="images/icons/2.png" alt="Общение">
+                            </div>
+                            <div class="module-title">
+                                <h3>Модуль 2: Общение без границ</h3>
+                                <p>Осваиваем современные способы связи и социальные сети</p>
+                            </div>
+                            <div class="module-duration">2 занятия</div>
+                        </div>
+                        <div class="module-content">
+                            <div class="module-topics">
+                                <h4><i class="fas fa-list-check"></i> Что изучим:</h4>
+                                <ul>
+                                    <li>Звонки, контакты, история вызовов</li>
+                                    <li>WhatsApp: установка, регистрация, чаты, видеозвонки</li>
+                                    <li>Telegram: каналы, группы, безопасное общение</li>
+                                    <li>Instagram:создание аккаунта, общение, сторис</li>
+                                    <li>YouTube: поиск видео, подписки, комментарии как способ связи</li>
+                                    <li>Видеозвонки детям и внукам через разные платформы</li>
+                                </ul>
+                            </div>
+                            <div class="module-skills">
+                                <h4><i class="fas fa-star"></i> Вы научитесь:</h4>
+                                <ul>
+                                    <li>Свободно общаться через мессенджеры и соцсети</li>
+                                    <li>Делать качественные видеозвонки на разных платформах</li>
+                                    <li>Создавать семейные чаты и группы</li>
+                                    <li>Использовать Instagram для общения и просмотра сторис</li>
+                                    <li>Находить полезный контент на YouTube</li>
+                                </ul>
+                            </div>
+                            <div class="module-features">
+                                <div class="feature-item">
+                                    <i class="fab fa-whatsapp"></i>
+                                    <span>WhatsApp</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fab fa-telegram"></i>
+                                    <span>Telegram</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fab fa-instagram"></i>
+                                    <span>Instagram</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fab fa-youtube"></i>
+                                    <span>YouTube</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Модуль 3 -->
+                    <div class="module-detail fade-in">
+                        <div class="module-header">
+                            <div class="module-icon">
+                                <img src="images/icons/3.png" alt="Интернет">
+                            </div>
+                            <div class="module-title">
+                                <h3>Модуль 3: Выходим в интернет и осваиваем сайты</h3>
+                                <p>Осваиваем всемирную паутину, поиск и популярные веб-сервисы</p>
+                            </div>
+                            <div class="module-duration">2 занятия</div>
+                        </div>
+                        <div class="module-content">
+                            <div class="module-topics">
+                                <h4><i class="fas fa-list-check"></i> Что изучим:</h4>
+                                <ul>       
+                                    <li>Что такое браузер и как им пользоваться</li>
+                                    <li>Как отличить надежный сайт от мошеннического</li>
+                                    <li>Поиск информации: рецепты, погода, новости</li>
+                                    <li>Сохранение сайтов в закладки</li>
+                                    <li>Безопасный серфинг в интернете</li>
+                                    <li>Поиск лекарств в аптеках онлайн</li>
+                                </ul>
+                            </div>
+                            <div class="module-skills">
+                                <h4><i class="fas fa-star"></i> Вы научитесь:</h4>
+                                <ul>
+                                    <li>Находить любую информацию в интернете</li>
+                                    <li>Безопасно пользоваться браузером</li>
+                                    <li>Сохранять полезные сайты в закладки</li>
+                                    <li>Различать надежные и ненадежные сайты</li>
+                                    <li>Ориентироваться в интернет-аптеках</li>
+                                </ul>
+                            </div>
+                            <div class="module-features">
+                                <div class="feature-item">
+                                    <i class="fas fa-search"></i>
+                                    <span>Поиск</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    <span>Магазины</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-tag"></i>
+                                    <span>OLX</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Модуль 5 -->
-            <div class="module-detail fade-in">
-                <div class="module-header">
-                    <div class="module-icon">
-                        <img src="images/icons/5.png" alt="Яндекс">
+            <!-- ========== СРЕДНИЙ УРОВЕНЬ (4-6) ========== -->
+            <div class="level-section" id="intermediate-level">
+                <div class="level-header">
+                    <div class="level-title">
+                        <div class="level-icon" style="background: var(--gradient-orange-glow);">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div>
+                            <h2>Уверенный пользователь</h2>
+                            <p class="level-subtitle">Модули 4-6 • Платежи, сервисы, безопасные покупки</p>
+                            <div class="level-badge">Повседневное использование</div>
+                        </div>
                     </div>
-                    <div class="module-title">
-                        <h3>Модуль 5: Сервисы для жизни: Яндекс</h3>
-                        <p>Используем популярные сервисы для повседневных задач</p>
-                    </div>
-                    <div class="module-duration">2 занятия</div>
                 </div>
-                <div class="module-content">
-                    <div class="module-topics">
-                        <h4><i class="fas fa-list-check"></i> Что изучим:</h4>
-                        <ul>
-                            <li>Яндекс.Карты: построение маршрутов</li>
-                            <li>Просмотр пробок и общественного транспорта</li>
-                            <li>Яндекс.Такси: заказ машины за 5 минут</li>
-                            <li>Яндекс.Еда: заказ еды на дом</li>
-                            <li>Яндекс.Почта: создание email-адреса</li>
-                            <li>Яндекс.Музыка и Яндекс.Афиша</li>
-                            <li>Настройка Яндекс.Станции</li>
-                        </ul>
+                
+                <div class="level-modules-container">
+                    <!-- Модуль 4 -->
+                    <div class="module-detail fade-in">
+                        <div class="module-header">
+                            <div class="module-icon">
+                                <img src="images/icons/4.png" alt="Платежи">
+                            </div>
+                            <div class="module-title">
+                                <h3>Модуль 4: Электронные деньги и платежи</h3>
+                                <p>Осваиваем современные финансовые инструменты и банковские сервисы</p>
+                            </div>
+                            <div class="module-duration">2 занятия</div>
+                        </div>
+                        <div class="module-content">
+                            <div class="module-topics">
+                                <h4><i class="fas fa-list-check"></i> Что изучим:</h4>
+                                <ul>
+                                    <li>Что такое онлайн-банкинг</li>
+                                    <li>Kaspi/Halyk Bank: приложение, платежи, переводы</li>
+                                    <li>Оплата коммунальных услуг без очередей</li>
+                                    <li>Пополнение баланса телефона через Beeline, Activ, Tele2</li>
+                                    <li>Безопасность при онлайн-платежах</li>
+                                    <li>Контроль расходов через приложение банка</li>
+                                    <li>Как защитить банковские данные</li>
+                                </ul>
+                            </div>
+                            <div class="module-skills">
+                                <h4><i class="fas fa-star"></i> Вы научитесь:</h4>
+                                <ul>
+                                    <li>Оплачивать ЖКХ и услуги онлайн через банки</li>
+                                    <li>Пользоваться Kaspi и Halyk Bank приложениями</li>
+                                    <li>Пополнять телефон у любого оператора</li>
+                                    <li>Делать денежные переводы безопасно</li>
+                                    <li>Платить по QR-кодам</li>
+                                    <li>Безопасно использовать банковские приложения</li>
+                                    <li>Контролировать свои финансы через банк</li>
+                                </ul>
+                            </div>
+                            <div class="module-features">
+                                <div class="feature-item">
+                                    <i class="fas fa-university"></i>
+                                    <span>Kaspi Bank</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-university"></i>
+                                    <span>Halyk Bank</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-mobile-alt"></i>
+                                    <span>Операторы</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>Безопасность</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="module-skills">
-                        <h4><i class="fas fa-star"></i> Вы научитесь:</h4>
-                        <ul>
-                            <li>Находить дорогу в незнакомом месте</li>
-                            <li>Заказывать такси без телефона</li>
-                            <li>Заказывать еду на дом</li>
-                            <li>Создавать и использовать почту</li>
-                            <li>Находить мероприятия в городе</li>
-                        </ul>
+
+                    <!-- Модуль 5 -->
+                    <div class="module-detail fade-in">
+                        <div class="module-header">
+                            <div class="module-icon">
+                                <img src="images/icons/5.png" alt="Яндекс">
+                            </div>
+                            <div class="module-title">
+                                <h3>Модуль 5: Карты, навигация и транспорт</h3>
+                                <p>Используем сервисы для навигации и передвижения по городу</p>
+                            </div>
+                            <div class="module-duration">2 занятия</div>
+                        </div>
+                        <div class="module-content">
+                            <div class="module-topics">
+                                <h4><i class="fas fa-list-check"></i> Что изучим:</h4>
+                                <ul>
+                                    <li>2GIS:карты города, поиск организаций</li>
+                                    <li>Яндекс.Карты: построение маршрутов, пробки</li>
+                                    <li>Yandex Go: заказ такси через приложение</li>
+                                    <li>Avtobus: отслеживание общественного транспорта</li>
+                                    <li>Indriver:альтернативный сервис такси</li>
+                                </ul>
+                            </div>
+                            <div class="module-skills">
+                                <h4><i class="fas fa-star"></i> Вы научитесь:</h4>
+                                <ul>
+                                    <li>Находить дорогу в незнакомом месте</li>
+                                    <li>Заказывать такси через разные приложения</li>
+                                    <li>Отслеживать общественный транспорт в реальном времени</li>
+                                    <li>Прокладывать оптимальные маршруты</li>
+                                    <li>Находить организации и услуги рядом</li>
+                                    <li>Экономить время на передвижении</li>
+                                </ul>
+                            </div>
+                            <div class="module-features">
+                                <div class="feature-item">
+                                    <i class="fas fa-map"></i>
+                                    <span>2GIS</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-map-marked-alt"></i>
+                                    <span>Яндекс Карты</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-taxi"></i>
+                                    <span>Такси</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-bus"></i>
+                                    <span>Транспорт</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Модуль 6 -->
+                    <div class="module-detail fade-in">
+                        <div class="module-header">
+                            <div class="module-icon">
+                                <img src="images/icons/6.png" alt="Покупки">
+                            </div>
+                            <div class="module-title">
+                                <h3>Модуль 6: Безопасные покупки и интернет-магазины</h3>
+                                <p>Осваиваем онлайн-шопинг через приложения и защищаем себя в сети</p>
+                            </div>
+                            <div class="module-duration">2 занятия</div>
+                        </div>
+                        <div class="module-content">
+                            <div class="module-topics">
+                                <h4><i class="fas fa-list-check"></i> Что изучим:</h4>
+                                <ul>
+                                    <li>Wildberries: приложение, поиск товаров, заказы</li>
+                                    <li>Kaspi Магазин:покупки, доставка, оплата через Kaspi</li>
+                                    <li>Pinduoduo:международные покупки, безопасность</li>
+                                    <li>OLX приложение: покупка и продажа с телефона</li>
+                                    <li>Возврат товаров: процедура и сроки</li>
+                                    <li>Защита от мошенников в интернет-магазинах</li>
+                                    <li>Распознавание фишинговых сайтов и поддельных приложений</li>
+                                </ul>
+                            </div>
+                            <div class="module-skills">
+                                <h4><i class="fas fa-star"></i> Вы научитесь:</h4>
+                                <ul>
+                                    <li>Безопасно покупать товары в популярных приложениях</li>
+                                    <li>Сравнивать цены в разных магазинах</li>
+                                    <li>Выбирать надежных продавцов на OLX</li>
+                                    <li>Отслеживать доставку заказов</li>
+                                    <li>Возвращать некачественные товары</li>
+                                    <li>Распознавать мошенников в интернет-магазинах</li>
+                                    <li>Защищать свои личные данные при покупках</li>
+                                </ul>
+                            </div>
+                            <div class="module-features">
+                                <div class="feature-item">
+                                    <i class="fas fa-shopping-bag"></i>
+                                    <span>Wildberries</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-store"></i>
+                                    <span>Kaspi Магазин</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-globe"></i>
+                                    <span>Pinduoduo</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>Безопасность</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Модуль 6 -->
-            <div class="module-detail fade-in">
-                <div class="module-header">
-                    <div class="module-icon">
-                        <img src="images/icons/6.png" alt="Покупки">
+            <!-- ========== ПРОДВИНУТЫЙ УРОВЕНЬ (7-9) ========== -->
+            <div class="level-section" id="advanced-level">
+                <div class="level-header">
+                    <div class="level-title">
+                        <div class="level-icon" style="background: var(--gradient-green);">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <div>
+                            <h2>Продвинутый уровень</h2>
+                            <p class="level-subtitle">Модули 7-9 • Углубленные знания и специализированные навыки</p>
+                            <div class="level-badge">Экспертное владение</div>
+                        </div>
                     </div>
-                    <div class="module-title">
-                        <h3>Модуль 6: Умные покупки и безопасность</h3>
-                        <p>Осваиваем онлайн-шопинг и защищаем себя в сети</p>
-                    </div>
-                    <div class="module-duration">2 занятия</div>
                 </div>
-                <div class="module-content">
-                    <div class="module-topics">
-                        <h4><i class="fas fa-list-check"></i> Что изучим:</h4>
-                        <ul>
-                            <li>Покупки на Wildberries и Ozon</li>
-                            <li>Выбор товара и чтение отзывов</li>
-                            <li>Оформление заказа и выбор доставки</li>
-                            <li>Отслеживание посылок</li>
-                            <li>Возврат товаров</li>
-                            <li>Защита от мошенников в интернете</li>
-                            <li>Создание надежных паролей</li>
-                            <li>Распознавание фишинговых сайтов</li>
-                        </ul>
+                
+                <div class="level-modules-container">
+                    <!-- Модуль 7 -->
+                    <div class="module-detail fade-in">
+                        <div class="module-header">
+                            <div class="module-icon">
+                                <img src="images/icons/7.png" alt="Госуслуги">
+                            </div>
+                            <div class="module-title">
+                                <h3>Модуль 7: Электронное правительство и госуслуги</h3>
+                                <p>Получаем государственные услуги онлайн через официальные сервисы</p>
+                            </div>
+                            <div class="module-duration">2 занятия</div>
+                        </div>
+                        <div class="module-content">
+                            <div class="module-topics">
+                                <h4><i class="fas fa-list-check"></i> Что изучим:</h4>
+                                <ul>
+                                    <li>eGov:регистрация, подтверждение личности</li>
+                                    <li>Электронная цифровая подпись (ЭЦП)</li>
+                                    <li>Безопасность при работе с госуслугами</li>
+                                    <li>Получение справок и выписок через госуслуги</li>
+                                    <li>Damumed:Запись к врачу через интернет</li>
+                                    <li>Получение государственных услуг через Kaspi </li>
+                                    <li>Оформление документов онлайн</li>
+                                    <li>Налоговые сервисы: проверка и оплата</li>
+                                    
+                                </ul>
+                            </div>
+                            <div class="module-skills">
+                                <h4><i class="fas fa-star"></i> Вы научитесь:</h4>
+                                <ul>
+                                    <li>Регистрироваться и подтверждать личность на eGov</li>
+                                    <li>Получать справки без посещения госорганов</li>
+                                    <li>Записываться к врачу онлайн</li>
+                                    <li>Оплачивать налоги через интернет</li>
+                                    <li>Использовать банки для получения госуслуг</li>
+                                    <li>Безопасно работать с персональными данными</li>
+                                </ul>
+                            </div>
+                            <div class="module-features">
+                                <div class="feature-item">
+                                    <i class="fas fa-passport"></i>
+                                    <span>eGov</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-file-contract"></i>
+                                    <span>Госуслуги</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-university"></i>
+                                    <span>Банки</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="module-skills">
-                        <h4><i class="fas fa-star"></i> Вы научитесь:</h4>
-                        <ul>
-                            <li>Безопасно покупать товары онлайн</li>
-                            <li>Выбирать надежных продавцов</li>
-                            <li>Отслеживать доставку заказов</li>
-                            <li>Распознавать мошенников</li>
-                            <li>Защищать свои личные данные</li>
-                        </ul>
+
+                    <!-- Модуль 8 -->
+                    <div class="module-detail fade-in">
+                        <div class="module-header">
+                            <div class="module-icon">
+                                <img src="images/icons/8.png" alt="Путешествия">
+                            </div>
+                            <div class="module-title">
+                                <h3>Модуль 8: Путешествия онлайн</h3>
+                                <p>Планируем поездки и бронируем билеты через интернет</p>
+                            </div>
+                            <div class="module-duration">2 занятия</div>
+                        </div>
+                        <div class="module-content">
+                            <div class="module-topics">
+                                <h4><i class="fas fa-list-check"></i> Что изучим:</h4>
+                                <ul>
+                                    <li>Поиск и покупка авиабилетов онлайн</li>
+                                    <li>Бронирование отелей и жилья (Airbnb, Booking)</li>
+                                    <li>Использование туристических приложений</li>
+                                    <li>Онлайн-гиды и карты для путешествий</li>
+                                    <li>Покупка билетов на мероприятия онлайн</li>
+                                </ul>
+                            </div>
+                            <div class="module-skills">
+                                <h4><i class="fas fa-star"></i> Вы научитесь:</h4>
+                                <ul>
+                                    <li>Находить и покупать самые выгодные авиабилеты</li>
+                                    <li>Бронировать жилье за границей</li>
+                                    <li>Планировать маршруты путешествий</li>
+                                    <li>Использовать навигацию в незнакомых городах</li>
+                                    <li>Находить достопримечательности и мероприятия</li>
+                                    <li>Оформлять все необходимые документы онлайн</li>
+                                </ul>
+                            </div>
+                            <div class="module-features">
+                                <div class="feature-item">
+                                    <i class="fas fa-plane"></i>
+                                    <span>Авиабилеты</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-hotel"></i>
+                                    <span>Отели</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-map-marked-alt"></i>
+                                    <span>Маршруты</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="module-result">
-                        <h4><i class="fas fa-graduation-cap"></i> Итог всего курса:</h4>
-                        <p>Вы станете уверенным пользователем смартфона и интернета, сможете самостоятельно решать повседневные задачи и общаться с близкими через современные технологии</p>
+
+                    <!-- Модуль 9 -->
+                    <div class="module-detail fade-in">
+                        <div class="module-header">
+                            <div class="module-icon">
+                                <img src="images/icons/9.png" alt="Образование">
+                            </div>
+                            <div class="module-title">
+                                <h3>Модуль 9: Онлайн-образование и искусственный интеллект</h3>
+                                <p>Используем современные технологии для саморазвития и решения задач</p>
+                            </div>
+                            <div class="module-duration">2 занятия</div>
+                        </div>
+                        <div class="module-content">
+                            <div class="module-topics">
+                                <h4><i class="fas fa-list-check"></i> Что изучим:</h4>
+                                <ul>
+                                    <li>Онлайн-курсы и лекции для взрослых</li>
+                                    <li>Электронные библиотеки и образовательные ресурсы</li>
+                                    <li>Языковые приложения для изучения иностранных языков</li>
+                                    <li>Развивающие игры и головоломки для мозга</li>
+                                    <li>ChatGPT:общение с ИИ, помощь в решении задач</li>
+                                    <li>Google Gemini:генирация изображений</li>
+                                    <li>Suno: музыкальные приложения с ИИ</li>
+                                    <li>Использование ИИ для повседневных задач</li>
+                                </ul>
+                            </div>
+                            <div class="module-skills">
+                                <h4><i class="fas fa-star"></i> Вы научитесь:</h4>
+                                <ul>
+                                    <li>Находить качественные онлайн-курсы</li>
+                                    <li>Использовать ИИ для решения повседневных задач</li>
+                                    <li>Общаться с ChatGPT для получения информации</li>
+                                    <li>Использовать Google Gemini для умного поиска</li>
+                                    <li>Работать с музыкальными ИИ-приложениями</li>
+                                    <li>Создавать простые цифровые проекты</li>
+                                    <li>Постоянно развиваться с помощью технологий</li>
+                                </ul>
+                            </div>
+                            <div class="module-features">
+                                <div class="feature-item">
+                                    <i class="fas fa-robot"></i>
+                                    <span>ChatGPT</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fab fa-google"></i>
+                                    <span>Gemini</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-music"></i>
+                                    <span>Suno</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-graduation-cap"></i>
+                                    <span>Обучение</span>
+                                </div>
+                            </div>
+                            <div class="module-result">
+                                <h4><i class="fas fa-graduation-cap"></i> Итог всего курса:</h4>
+                                <p>Вы станете уверенным пользователем смартфона и интернета, сможете самостоятельно решать повседневные задачи, общаться с близкими через современные технологии, делать покупки онлайн, пользоваться государственными услугами и даже использовать искусственный интеллект для саморазвития!</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
             <!-- Кнопка записи -->
             <div style="text-align: center; margin-top: 3rem;">
                 <a href="index.html" class="btn">Записаться на курс</a>
@@ -314,114 +626,4 @@
         </div>
     </section>
 
-        <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <div class="footer-logo">
-                        <i class="fas fa-laptop-code"></i>
-                        Цифровая грамотность
-                    </div>
-                    <p class="footer-description">
-                        Осваивайте технологии с уверенностью и комфортом. 
-                        Мы помогаем взрослым стать уверенными пользователями 
-                        цифровых технологий.
-                    </p>
-                    <div class="footer-social">
-                        <a href="#" class="social-link"><i class="fab fa-vk"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Навигация</h3>
-                    <ul class="footer-links">
-                        <li><a href="index.html#about">О курсе</a></li>
-                        <li><a href="modules.html">Модули</a></li>
-                        <li><a href="pricing.html#pricing">Стоимость</a></li>
-                        <li><a href="index.html#reviews">Отзывы</a></li>
-                        <li><a href="index.html#contact">Запись</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Контакты</h3>
-                    <div class="footer-contact">
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <span>+7 (747) 550-98-19</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>г. Павлодар ул. Чокина 25</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <span>info@digital-course.ru</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-clock"></i>
-                            <span>Пн-Пт: 9:00-18:00</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Рассылка</h3>
-                    <div class="footer-newsletter">
-                        <p style="color: rgba(255,255,255,0.8); margin-bottom: 1rem; font-size: 0.9rem;">
-                            Подпишитесь на новости и акции
-                        </p>
-                        <form class="newsletter-form">
-                            <input type="email" placeholder="Ваш email" required>
-                            <button type="submit" class="btn">Подписаться</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <div class="copyright">
-                    © Цифровая грамотность для взрослых, 2023. Все права защищены.
-                </div>
-                <ul class="footer-bottom-links">
-                    <li><a href="#">Политика конфиденциальности</a></li>
-                    <li><a href="#">Пользовательское соглашение</a></li>
-                </ul>
-            </div>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
-
-    <!-- Фаб-кнопка помощника -->
-    <div class="assistant-fab">
-        <div class="assistant-icon">💬</div>
-    </div>
-
-    <!-- Окно чата -->
-    <div class="assistant-chat">
-        <div class="chat-header">
-            <h4>Помощник курса</h4>
-            <button class="close-chat">&times;</button>
-        </div>
-        <div class="chat-messages">
-            <div class="message assistant-message">
-                Привет! 👋 Хочешь записаться на курс или узнать подробности?
-            </div>
-        </div>
-        <div class="chat-actions">
-            <button class="chat-btn tg-btn">
-                <i class="fab fa-telegram"></i>
-                Написать в Telegram
-            </button>
-            <button class="chat-btn whatsapp-btn">
-                <i class="fab fa-whatsapp"></i>
-                Написать в WhatsApp
-            </button>
-        </div>
-    </div>
-</body>
-</html>
+<script src="script.js"></script>
