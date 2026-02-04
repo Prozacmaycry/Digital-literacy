@@ -325,40 +325,6 @@ nav {
     font-size: 0.8rem;
     font-weight: 600;
 }
-/* Стили для уведомления об актуальности цен */
-.price-alert {
-    background: var(--gradient-orange);
-    color: white;
-    padding: 1.2rem 2rem;
-    border-radius: 12px;
-    margin-top: 1.5rem;
-    text-align: center;
-    font-weight: 600;
-    font-size: 1.1rem;
-    line-height: 1.6;
-    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
-    animation: pulse-alert 2s ease-in-out infinite;
-}
-
-@keyframes pulse-alert {
-    0%, 100% {
-        transform: scale(1);
-        box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
-    }
-    50% {
-        transform: scale(1.02);
-        box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
-    }
-}
-
-/* Стили для отображения будущей цены */
-.old-price {
-    color: #888;
-    font-size: 0.9rem;
-    margin-top: 0.5rem;
-    text-decoration: line-through;
-    font-weight: 500;
-}
 
 .pricing-header {
     margin-bottom: 1.5rem;
@@ -1658,6 +1624,55 @@ footer::after {
     border-radius: 15px;
     margin-top: 1rem;
 }
+
+/* Стили для уведомления об актуальности цен */
+.price-alert {
+    background: var(--gradient-orange);
+    color: white;
+    padding: 1.2rem 2rem;
+    border-radius: 12px;
+    margin-top: 1.5rem;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+    animation: pulse-alert 2s ease-in-out infinite;
+}
+
+@keyframes pulse-alert {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+    }
+    50% {
+        transform: scale(1.02);
+        box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+    }
+}
+
+/* Стили для отображения будущей цены */
+.old-price {
+    color: #888;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    text-decoration: line-through;
+    font-weight: 500;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .price-alert {
+        font-size: 1rem;
+        padding: 1rem 1.5rem;
+        line-height: 1.5;
+    }
+    
+    .old-price {
+        font-size: 0.85rem;
+    }
+}
+
 
 
         /* Прогресс-бар курса */
