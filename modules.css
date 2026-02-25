@@ -13,7 +13,7 @@
     position: relative;
     background: white;
     border-radius: var(--border-radius);
-    box-shadow: var(--shadow-light);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
     padding: 1.5rem 2rem;
     border: 1px solid rgba(255, 107, 53, 0.1);
     gap: 1rem;
@@ -48,7 +48,7 @@
     margin-bottom: 1rem;
     transition: all 0.3s ease;
     border: 4px solid white;
-    box-shadow: var(--shadow-medium);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     flex-shrink: 0;
 }
 
@@ -141,10 +141,10 @@
     text-align: left;
 }
 
-/* ФИКСИРОВАННЫЙ ПРОГРЕСС-БАР - УПРАВЛЯЕТСЯ JS */
+/* ФИКСИРОВАННЫЙ ПРОГРЕСС-БАР - ИСПРАВЛЕНО */
 .course-progress.fixed {
     position: fixed !important;
-    top: 80px !important;
+    top: 80px !important; /* Высота хедера */
     left: 0 !important;
     right: 0 !important;
     margin: 0 !important;
@@ -155,7 +155,7 @@
     box-shadow: 0 5px 20px rgba(0,0,0,0.1) !important;
     border-radius: 0 !important;
     border-bottom: 2px solid rgba(255, 107, 53, 0.1) !important;
-    z-index: 1000 !important;
+    z-index: 999 !important; /* Ниже чем у хедера (1000) */
     animation: slideDown 0.3s ease !important;
     width: 100% !important;
     max-width: 100% !important;
@@ -273,25 +273,23 @@
 
 /* Мобильные устройства (до 768px) - Горизонтальный прогресс-бар */
 @media (max-width: 768px) {
-    /* Добавьте это в конец медиа-запроса */
-    
     .level-badge{
         display: none;
     }
 
     .level-header h2 {
-        font-size: 1.4rem !important; /* Меньше на мобильных */
-        text-align: center !important; /* Центрируем текст */
+        font-size: 1.4rem !important;
+        text-align: center !important;
         margin-bottom: 0.8rem !important;
         line-height: 1.3 !important;
     }
     
     .level-badge {
-        font-size: 0.75rem !important; /* Еще меньше на мобильных */
-        padding: 0.3rem 0.8rem !important; /* Меньше отступы */
+        font-size: 0.75rem !important;
+        padding: 0.3rem 0.8rem !important;
         margin-top: 0.3rem !important;
-        background: rgba(0,0,0,0.08) !important; /* Более светлый фон */
-        border: 1px solid rgba(0,0,0,0.1) !important; /* Добавляем рамку */
+        background: rgba(0,0,0,0.08) !important;
+        border: 1px solid rgba(0,0,0,0.1) !important;
     }
 
     .course-progress {
@@ -299,12 +297,12 @@
     }
     
     .progress-track {
-        flex-direction: row; /* Горизонтальный ряд */
+        flex-direction: row;
         gap: 0.5rem;
         padding: 1rem;
         justify-content: space-between;
         align-items: center;
-        overflow-x: auto; /* Скролл если не помещается */
+        overflow-x: auto;
         -webkit-overflow-scrolling: touch;
     }
     
@@ -387,9 +385,12 @@
         margin-top: 0.5rem;
     }
     
-    /* Фиксированный прогресс-бар на мобильных */
+    /* ФИКСИРОВАННЫЙ ПРОГРЕСС-БАР НА МОБИЛЬНЫХ - ИСПРАВЛЕНО */
     .course-progress.fixed {
-        top: 60px !important;
+        top: 70px !important; /* Высота хедера на мобильных */
+        z-index: 999 !important; /* Ниже хедера */
+        position: sticky !important; /* Пытаемся использовать sticky вместо fixed */
+        position: -webkit-sticky !important;
     }
     
     .course-progress.fixed .progress-track {
@@ -478,12 +479,10 @@
         padding: 0.4rem 1rem;
         display: none;
     }
-
     
-    
-    /* Фиксированный бар для маленьких экранов */
+    /* ФИКСИРОВАННЫЙ БАР ДЛЯ МАЛЕНЬКИХ ЭКРАНОВ */
     .course-progress.fixed {
-        top: 50px !important;
+        top: 60px !important; /* Меньше на очень маленьких */
     }
     
     .course-progress.fixed .progress-track {
@@ -499,7 +498,7 @@
 /* Ландшафтная ориентация */
 @media (max-height: 600px) and (orientation: landscape) {
     .course-progress.fixed {
-        top: 50px !important;
+        top: 60px !important;
     }
 }
 
@@ -576,4 +575,3 @@
         padding: 0.8rem;
     }
 }
-
