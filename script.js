@@ -1,4 +1,3 @@
-
 // Мобильное меню - ИСПРАВЛЕННАЯ ВЕРСИЯ
 document.addEventListener('DOMContentLoaded', function() {
     const menuBtn = document.querySelector('.mobile-menu-btn');
@@ -570,91 +569,108 @@ document.addEventListener("DOMContentLoaded", () => {
     const courseProgress = document.getElementById('course-progress');
     const header = document.querySelector('header');
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    
+    const navLinks = document.querySelector('.nav-links');
+
     // Переменные состояния
     let activeLevel = 1;
     let isFixed = false;
     let isMobile = window.innerWidth <= 768;
     const levelPositions = {};
-    
-    // Высота элементов
-    const headerHeight = header ? header.offsetHeight : 80;
-    const progressOffset = courseProgress.offsetTop;
-    
+
+    // Placeholder — чтобы контент не прыгал когда прогресс-бар уходит в fixed
+    const placeholder = document.createElement('div');
+    placeholder.id = 'course-progress-placeholder';
+    placeholder.style.cssText = 'display:none; width:100%;';
+    courseProgress.parentNode.insertBefore(placeholder, courseProgress);
+
     // Проверяем, открыто ли мобильное меню
     function isMobileMenuOpen() {
-        return mobileMenuBtn && mobileMenuBtn.classList.contains('active');
+        return navLinks && navLinks.classList.contains('active');
     }
-    
+
     // Определение устройства
     function checkDevice() {
         const wasMobile = isMobile;
         isMobile = window.innerWidth <= 768;
-        
         if (wasMobile !== isMobile) {
             initLevelPositions();
             updateActiveLevel();
         }
     }
-    
+
+    // Получаем реальный offsetTop прогресс-бара (через placeholder когда он fixed)
+    function getProgressNaturalTop() {
+        if (isFixed) {
+            return placeholder.offsetTop;
+        }
+        return courseProgress.offsetTop;
+    }
+
     // Инициализация позиций уровней
     function initLevelPositions() {
+        const headerHeight = header ? header.offsetHeight : 80;
         levelSections.forEach(section => {
             const rect = section.getBoundingClientRect();
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
             const offsetAdjustment = isMobile ? 30 : 50;
             const offsetTop = rect.top + scrollTop - headerHeight - offsetAdjustment;
-            
             const id = section.id;
-            const step = id === 'beginner-level' ? 1 : 
+            const step = id === 'beginner-level' ? 1 :
                         id === 'intermediate-level' ? 2 : 3;
-            
             levelPositions[step] = offsetTop;
         });
-        
-        console.log('Level positions:', levelPositions);
     }
-    
+
+    // Устанавливаем top прогресс-бара точно под header
+    function applyFixedTop() {
+        const headerHeight = header ? header.offsetHeight : 80;
+        courseProgress.style.top = headerHeight + 'px';
+    }
+
+    // Обновление fixed-состояния
+    function updateFixed(scrollPosition) {
+        const naturalTop = getProgressNaturalTop();
+        const shouldBeFixed = scrollPosition > naturalTop;
+
+        if (shouldBeFixed === isFixed) return;
+        isFixed = shouldBeFixed;
+
+        if (shouldBeFixed) {
+            // Запоминаем высоту перед фиксацией
+            placeholder.style.height = courseProgress.offsetHeight + 'px';
+            placeholder.style.display = 'block';
+            courseProgress.classList.add('fixed');
+            applyFixedTop();
+        } else {
+            courseProgress.classList.remove('fixed');
+            courseProgress.style.top = '';
+            placeholder.style.display = 'none';
+        }
+    }
+
     // Обновление активного уровня
     function updateActiveLevel() {
         const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
         const viewportHeight = window.innerHeight;
         const triggerOffset = viewportHeight * (isMobile ? 0.15 : 0.2);
-        
-        // Определяем активный уровень
+
         let newActiveLevel = 1;
-        
         if (levelPositions[3] && scrollPosition >= levelPositions[3] - triggerOffset) {
             newActiveLevel = 3;
         } else if (levelPositions[2] && scrollPosition >= levelPositions[2] - triggerOffset) {
             newActiveLevel = 2;
         }
-        
-        // Обновляем UI только если уровень изменился
+
         if (newActiveLevel !== activeLevel) {
             activeLevel = newActiveLevel;
-            
             progressSteps.forEach(step => {
                 const stepNumber = parseInt(step.getAttribute('data-step'));
                 step.classList.toggle('active', stepNumber === activeLevel);
             });
-            
             updateProgressLines();
         }
-        
-        // ВАЖНОЕ ИЗМЕНЕНИЕ: ФИКСИРУЕМ И НА МОБИЛЬНЫХ ТОЖЕ!
-        const shouldBeFixed = scrollPosition > progressOffset;
-        
-        if (shouldBeFixed !== isFixed) {
-            isFixed = shouldBeFixed;
-            courseProgress.classList.toggle('fixed', shouldBeFixed);
-            
-            // На мобильных добавляем дополнительный отступ для открытого меню
-            if (isMobile && isMobileMenuOpen()) {
-                document.body.style.paddingTop = shouldBeFixed ? '140px' : '';
-            }
-        }
+
+        updateFixed(scrollPosition);
     }
     
     // Обновление линий прогресса
@@ -689,6 +705,9 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
     }
+
+    
+    
     
     // Адаптивная инициализация
     function init() {
@@ -724,6 +743,8 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log('Progress bar initialized');
         }, 100);
     }
+
+    
     
     // Дебаунсинг для оптимизации
     let scrollTimeout;
@@ -753,8 +774,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Обработка открытия/закрытия мобильного меню
     if (mobileMenuBtn) {
         mobileMenuBtn.addEventListener('click', function() {
-            // Обновляем позицию при открытии/закрытии меню
+            // После анимации меню пересчитываем высоту header и top прогресс-бара
             setTimeout(() => {
+                if (isFixed) applyFixedTop();
                 initLevelPositions();
                 updateActiveLevel();
             }, 300);
@@ -766,14 +788,5 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener('load', function() {
         setTimeout(init, 300);
     });
-});
-
-const nav = document.querySelector('nav') || document.querySelector('header');
-if (nav) {
-  document.documentElement.style.setProperty('--nav-height', nav.offsetHeight + 'px');
-}
-
-// Обновляем при изменении размера окна
-window.addEventListener('resize', () => {
-  if (nav) document.documentElement.style.setProperty('--nav-height', nav.offsetHeight + 'px');
+    
 });
