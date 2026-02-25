@@ -627,37 +627,3 @@
     </section>
 
 <script src="script.js"></script>
-<script>
-    (function() {
-        var header = document.querySelector('header');
-        var courseProgress = document.getElementById('course-progress');
-
-        function updateProgressTop() {
-            if (!courseProgress) return;
-            var headerH = header ? header.offsetHeight : 0;
-            // Всегда держим прогресс-бар ровно под header
-            if (courseProgress.classList.contains('fixed')) {
-                courseProgress.style.top = headerH + 'px';
-            }
-        }
-
-        // Следим за добавлением/снятием класса fixed (MutationObserver)
-        if (courseProgress) {
-            var observer = new MutationObserver(function(mutations) {
-                mutations.forEach(function(m) {
-                    if (m.attributeName === 'class') {
-                        updateProgressTop();
-                    }
-                });
-            });
-            observer.observe(courseProgress, { attributes: true });
-        }
-
-        // При изменении размера окна пересчитываем
-        window.addEventListener('resize', updateProgressTop);
-
-        // Первый запуск после загрузки
-        window.addEventListener('load', updateProgressTop);
-        document.addEventListener('DOMContentLoaded', updateProgressTop);
-    })();
-</script>
