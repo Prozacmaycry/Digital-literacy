@@ -623,8 +623,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Устанавливаем top прогресс-бара точно под header
     function applyFixedTop() {
-        const headerHeight = header ? header.offsetHeight : 80;
-        courseProgress.style.top = headerHeight + 'px';
+        if (!header) {
+            courseProgress.style.top = '80px';
+            return;
+        }
+        // getBoundingClientRect().bottom — точная нижняя граница header прямо сейчас
+        const headerBottom = header.getBoundingClientRect().bottom;
+        // Если header вне viewport (scrolled past), используем offsetHeight
+        const top = headerBottom > 0 ? headerBottom : header.offsetHeight;
+        courseProgress.style.top = top + 'px';
     }
 
     // Обновление fixed-состояния
@@ -696,7 +703,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const targetElement = document.getElementById(targetId);
         
         if (targetElement) {
-            const offsetAdjustment = isMobile ? headerHeight + 20 : headerHeight + 30;
+            const hh = header ? header.offsetHeight : 80;
+            const offsetAdjustment = isMobile ? hh + 20 : hh + 30;
             const offset = targetElement.offsetTop - offsetAdjustment;
             
             window.scrollTo({
@@ -760,6 +768,7 @@ document.addEventListener("DOMContentLoaded", () => {
             checkDevice();
             initLevelPositions();
             updateActiveLevel();
+            if (isFixed) applyFixedTop();
         }, 150);
     });
     
