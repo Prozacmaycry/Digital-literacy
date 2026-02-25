@@ -767,3 +767,13 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(init, 300);
     });
 });
+
+const nav = document.querySelector('nav') || document.querySelector('header');
+if (nav) {
+  document.documentElement.style.setProperty('--nav-height', nav.offsetHeight + 'px');
+}
+
+// Обновляем при изменении размера окна
+window.addEventListener('resize', () => {
+  if (nav) document.documentElement.style.setProperty('--nav-height', nav.offsetHeight + 'px');
+});
