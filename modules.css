@@ -156,7 +156,7 @@
     box-shadow: 0 5px 20px rgba(0,0,0,0.1) !important;
     border-radius: 0 !important;
     border-bottom: 2px solid rgba(255, 107, 53, 0.1) !important;
-    z-index: 90 !important; /* ниже header(1000), мобильного меню(999) и кнопки бургера(1000) */
+    z-index: 90 !important; /* ниже header(1000), nav-links.active(999), mobile-menu-btn(1000) */
     animation: slideDown 0.3s ease !important;
     width: 100% !important;
     max-width: 100% !important;
