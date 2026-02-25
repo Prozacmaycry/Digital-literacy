@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Программы обучения - Цифровая грамотность для взрослых</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Общие стили для страницы программ */
+        .programs-page {
+            padding: 140px 0 80px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            min-height: 100vh;
+        }
+
+        /* Заголовок */
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: var(--gradient-orange-glow);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Progress Track - ВСЕГДА ГОРИЗОНТАЛЬНЫЙ */
+        .course-progress {
+            margin: 40px 0 30px;
+            position: relative;
+            overflow-x: auto;
+            padding: 10px 0 20px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-orange) #e0e0e0;
+        }
+
+        .course-progress::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .course-progress::-webkit-scrollbar-track {
+            background: #e0e0e0;
+            border-radius: 10px;
+        }
+
+        .course-progress::-webkit-scrollbar-thumb {
+            background: var(--primary-orange);
+            border-radius: 10px;
+        }
+        
+        .progress-track {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 0 1rem;
+            min-width: min-content;
+        }
+        
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+            min-width: 180px;
+        }
+        
+        .step-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        
+        .progress-step[data-step="1"] .step-circle {
+            background: var(--gradient-blue-bright);
+            color: white;
+        }
+        
+        .progress-step[data-step="2"] .step-circle {
+            background: var(--gradient-orange-glow);
+            color: white;
+        }
+        
+        .step-circle i {
+            font-size: 2rem;
+        }
+        
+        .step-label {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+            color: var(--text-dark);
+            white-space: nowrap;
+        }
+        
+        .step-desc {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            background: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255,107,53,0.2);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            white-space: nowrap;
+        }
+        
+        .progress-line {
+            flex: 1;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                var(--primary-blue) 0%, 
+                var(--primary-orange) 100%);
+            margin: 0 -10px;
+            position: relative;
+            z-index: 1;
+            border-radius: 2px;
+            min-width: 50px;
+        }
+
+        /* Легенда */
+        .path-legend {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 20px 0 40px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            background: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+        }
+
+        .legend-color.blue {
+            background: var(--gradient-blue-bright);
+        }
+
+        .legend-color.orange {
+            background: var(--gradient-orange-glow);
+        }
+
+        /* Сетка программ */
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin: 50px 0;
+        }
+
+        /* Карточка программы */
+        .program-card {
+            background: white;
+            border-radius: 24px;
+            padding: 30px 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            position: relative;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .program-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .program-card.required {
+            border-top: 5px solid var(--primary-blue);
+        }
+
+        .program-card.optional {
+            border-top: 5px solid var(--primary-orange);
+        }
+
+        .program-card.discount {
+            border: 2px solid var(--primary-orange);
+            background: linear-gradient(135deg, #fff9f6, #ffffff);
+            transform: scale(1.02);
+        }
+
+        .program-card.discount:hover {
+            transform: scale(1.02) translateY(-8px);
+        }
+
+        /* Бейдж */
+        .program-badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            padding: 6px 20px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            z-index: 5;
+        }
+
+        .badge-blue {
+            background: var(--gradient-blue-bright);
+        }
+
+        .badge-orange {
+            background: var(--gradient-orange-glow);
+        }
+
+        .badge-discount {
+            background: linear-gradient(135deg, #FF8A00, #FF4500);
+        }
+
+        /* Заголовок карточки */
+        .program-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .program-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            flex-shrink: 0;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+        }
+
+        .required .program-icon {
+            background: var(--gradient-blue-bright);
+        }
+
+        .optional .program-icon {
+            background: var(--gradient-orange-glow);
+        }
+
+        .program-title h3 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            color: var(--text-dark);
+        }
+
+        .program-title p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* Модули */
+        .modules-preview {
+            background: linear-gradient(135deg, #f0f4ff, #f8f9fa);
+            border-radius: 20px;
+            padding: 20px 15px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(46, 91, 255, 0.1);
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .modules-preview h4 {
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .modules-preview h4 i {
+            color: var(--primary-orange);
+            font-size: 1rem;
+        }
+
+        .module-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .module-tag {
+            background: white;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border: 1px solid rgba(46, 91, 255, 0.2);
+            color: var(--primary-blue);
+            transition: all 0.2s ease;
+        }
+
+        .module-tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(46, 91, 255, 0.15);
+            border-color: var(--primary-blue);
+        }
+
+        .module-tag.optional {
+            border-color: rgba(255, 107, 53, 0.3);
+            color: var(--primary-orange);
+            background: linear-gradient(135deg, #fff5f0, white);
+        }
+
+        .module-tag.optional:hover {
+            border-color: var(--primary-orange);
+            box-shadow: 0 6px 15px rgba(255, 107, 53, 0.15);
+        }
+
+        /* Особенности - ИСПРАВЛЕНО: оранжевый цвет */
+        .program-features {
+            list-style: none;
+            margin: 0 0 20px;
+            flex-grow: 1;
+        }
+
+        .program-features li {
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            border-bottom: 1px solid rgba(255, 107, 53, 0.1);
+        }
+
+        .program-features li:last-child {
+            border-bottom: none;
+        }
+
+        .program-features i {
+            width: 20px;
+            font-size: 1.1rem;
+            color: var(--primary-orange); /* Все иконки оранжевые */
+        }
+
+        .program-features .fa-star {
+            color: #FFD700; /* Золотая звезда */
+        }
+
+        /* Цена */
+        .price-block {
+            text-align: center;
+            padding: 20px 0 15px;
+            border-top: 2px dashed rgba(255, 107, 53, 0.2);
+            border-bottom: 2px dashed rgba(255, 107, 53, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .price-label {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 5px;
+        }
+
+        .price {
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .required .price {
+            color: var(--primary-blue);
+        }
+
+        .optional .price {
+            color: var(--primary-orange);
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: var(--text-light);
+            font-size: 1.2rem;
+            margin-right: 10px;
+        }
+
+        .price-note {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: 5px;
+        }
+
+        .price-note i {
+            color: var(--primary-orange);
+        }
+
+        /* Кнопка */
+        .program-btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            text-align: center;
+            background: var(--gradient-blue-bright);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-top: auto;
+            box-shadow: 0 5px 15px rgba(46, 91, 255, 0.2);
+        }
+
+        .optional .program-btn {
+            background: var(--gradient-orange-glow);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.2);
+        }
+
+        .program-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(46, 91, 255, 0.3);
+        }
+
+        .optional .program-btn:hover {
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
+        }
+
+        /* Блок помощи */
+        .help-block {
+            background: white;
+            border-radius: 24px;
+            padding: 30px;
+            margin: 50px 0;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border-left: 6px solid var(--primary-orange);
+        }
+
+        .help-block h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .help-block h3 i {
+            color: var(--primary-orange);
+        }
+
+        .help-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .help-item {
+            display: flex;
+            gap: 15px;
+        }
+
+        .help-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gradient-blue-bright);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            box-shadow: 0 5px 10px rgba(46, 91, 255, 0.2);
+        }
+
+        .help-text h4 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .help-text p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        /* FAQ */
+        .faq-section {
+            margin: 50px 0;
+        }
+
+        .faq-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .faq-section h3 i {
+            color: var(--primary-orange);
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.1);
+            border: 1px solid rgba(255, 107, 53, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .faq-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: var(--gradient-orange-glow);
+            border-radius: 6px 0 0 6px;
+        }
+
+        .faq-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 15px 30px rgba(255, 107, 53, 0.15);
+            border-color: var(--primary-orange);
+        }
+
+        .faq-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            color: var(--primary-orange);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+        }
+
+        .faq-item h4 i {
+            color: var(--primary-orange);
+            font-size: 1.1rem;
+            background: rgba(255, 107, 53, 0.1);
+            padding: 8px;
+            border-radius: 50%;
+        }
+
+        .faq-item p {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin: 0;
+            padding-left: 34px;
+        }
+
+        /* Кнопка записи */
+        .cta-wrapper {
+            text-align: center;
+            margin: 50px 0 30px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 50px;
+            font-size: 1.2rem;
+            background: var(--gradient-orange-glow);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(255, 107, 53, 0.4);
+        }
+
+        .phone-link {
+            margin-top: 20px;
+            font-size: 1.1rem;
+        }
+
+        .phone-link a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 2px solid rgba(46, 91, 255, 0.2);
+            padding-bottom: 2px;
+        }
+
+        .phone-link a:hover {
+            border-bottom-color: var(--primary-blue);
+        }
+
+        /* АДАПТИВНОСТЬ */
+        @media (max-width: 1024px) {
+            .programs-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .help-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+    .programs-page {
+        padding: 100px 0 50px;
+    }
+
+    .page-header h1 {
+        font-size: 2rem;
+    }
+
+    /* Progress Track - СТРОГО ГОРИЗОНТАЛЬНЫЙ */
+    .course-progress {
+        margin: 30px 0 20px;
+        overflow-x: auto;
+    }
+    
+    .progress-track {
+        flex-direction: row !important; /* Принудительно горизонтально */
+        justify-content: flex-start;
+        gap: 0;
+    }
+    
+    .progress-step {
+        min-width: 160px;
+        flex-direction: column;
+    }
+    
+    .step-circle {
+        width: 70px;
+        height: 70px;
+        margin-bottom: 0.5rem;
+    }
+    
+    .step-circle i {
+        font-size: 1.8rem;
+    }
+    
+    .progress-line {
+        height: 4px;
+        min-width: 30px;
+        margin: 0 -5px;
+    }
+
+            .programs-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .program-card.discount {
+                transform: none;
+            }
+
+            .program-card.discount:hover {
+                transform: translateY(-8px);
+            }
+
+            .help-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .path-legend {
+                gap: 15px;
+            }
+            
+            .legend-item {
+                padding: 6px 15px;
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .program-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .program-title {
+                text-align: center;
+            }
+
+            .program-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.6rem;
+            }
+
+            .price {
+                font-size: 2rem;
+            }
+
+            .cta-button {
+                width: 100%;
+                padding: 16px 20px;
+                font-size: 1rem;
+            }
+
+            .path-legend {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            
+            .progress-step {
+                min-width: 140px;
+            }
+            
+            .step-label {
+                font-size: 0.9rem;
+            }
+            
+            .step-desc {
+                font-size: 0.75rem;
+                padding: 0.2rem 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="container">
+        <nav>
+            <div class="logo">
+                <i class="fas fa-laptop-code"></i>
+                Цифровая грамотность
+            </div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links">
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="programs.html" >Программы</a></li>
+                <li><a href="modules.html">Модули</a></li>
+                <li><a href="pricing.html">Стоимость</a></li>
+                <li><a href="index.html#reviews">Отзывы</a></li>
+                <li><a href="index.html#contact">Запись</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main class="programs-page">
+    <div class="container">
+        
+        <!-- Заголовок -->
+        <div class="page-header">
+            <h1>Программы обучения</h1>
+            <p>Выберите свой путь к цифровой грамотности</p>
+        </div>
+
+        <!-- Progress Track - ВСЕГДА ГОРИЗОНТАЛЬНЫЙ -->
+        <div class="course-progress">
+            <div class="progress-track">
+                <div class="progress-step" data-step="1">
+                    <div class="step-circle">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <div>
+                        <div class="step-label">Базовый уровень</div>
+                        <div class="step-desc">Модули 1-6</div>
+                    </div>
+                </div>
+                
+                <div class="progress-line"></div>
+                
+                <div class="progress-step" data-step="2">
+                    <div class="step-circle">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div>
+                        <div class="step-label">Продвинутый</div>
+                        <div class="step-desc">Модули 7-9</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Легенда -->
+        <div class="path-legend">
+            <div class="legend-item">
+                <div class="legend-color blue"></div>
+                <span>Обязательная база</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color orange"></div>
+                <span>Дополнительный модуль</span>
+            </div>
+        </div>
+
+        <!-- Сетка программ -->
+        <div class="programs-grid">
+            
+            <!-- Карточка 1: Базовый курс -->
+            <div class="program-card required">
+                <div class="program-badge badge-blue">Обязательный</div>
+                <div class="program-header">
+                    <div class="program-icon">
+                        <i class="fas fa-shield-heart"></i>
+                    </div>
+                    <div class="program-title">
+                        <h3>Базовый курс</h3>
+                        <p>Модули 1-6 · 12 занятий</p>
+                    </div>
+                </div>
+
+                <div class="modules-preview">
+                    <h4><i class="fas fa-cubes"></i> Состав программы:</h4>
+                    <div class="module-tags">
+                        <span class="module-tag">Смартфон</span>
+                        <span class="module-tag">Мессенджеры</span>
+                        <span class="module-tag">Интернет</span>
+                        <span class="module-tag">Платежи</span>
+                        <span class="module-tag">Навигация</span>
+                        <span class="module-tag">Покупки</span>
+                    </div>
+                </div>
+
+                <ul class="program-features">
+                    <li><i class="fas fa-check-circle"></i> Основы работы со смартфоном</li>
+                    <li><i class="fas fa-check-circle"></i> Безопасность в интернете</li>
+                    <li><i class="fas fa-check-circle"></i> Электронные платежи</li>
+                    <li><i class="fas fa-check-circle"></i> Карты и навигация</li>
+                </ul>
+
+                <div class="price-block">
+                    <div class="price-label">Стоимость</div>
+                    <div class="price">40 000 ₸</div>
+                    <div class="price-note"><i class="fas fa-clock"></i> 3 330 ₸/занятие</div>
+                </div>
+
+                <a href="index.html#contact" class="program-btn">Выбрать базовый</a>
+            </div>
+
+            <!-- Карточка 2: Полный курс - ИСПРАВЛЕНА ИКОНКА -->
+            <div class="program-card discount">
+                <div class="program-badge badge-discount"> Экономия 5 000 ₸</div>
+                <div class="program-header">
+                    <div class="program-icon" style="background: linear-gradient(135deg, #FF8A00, #FF4500);">
+                        <i class="fas fa-gem" style="color: white;"></i> <!-- Заменил crown на gem -->
+                    </div>
+                    <div class="program-title">
+                        <h3>Полный курс</h3>
+                        <p>Модули 1-9 · 18 занятий</p>
+                    </div>
+                </div>
+
+                <div class="modules-preview">
+                    <h4><i class="fas fa-cubes"></i> Состав программы:</h4>
+                    <div class="module-tags">
+                        <span class="module-tag">Модули 1-6</span>
+                        <span class="module-tag optional">Госуслуги</span>
+                        <span class="module-tag optional">Путешествия</span>
+                        <span class="module-tag optional">ИИ</span>
+                    </div>
+                </div>
+
+                <ul class="program-features">
+                    <li><i class="fas fa-check-circle"></i> Всё из базового курса</li>
+                    <li><i class="fas fa-check-circle"></i> Госуслуги и eGov</li>
+                    <li><i class="fas fa-check-circle"></i> Путешествия онлайн</li>
+                    <li><i class="fas fa-check-circle"></i> Искусственный интеллект</li>
+                    <li><i class="fas fa-star"></i> <strong>Экономия 5 000 ₸</strong></li>
+                </ul>
+
+                <div class="price-block">
+                    <div class="price-label">Вместо <span class="old-price">55 000 ₸</span></div>
+                    <div class="price" style="color: var(--primary-orange);">50 000 ₸</div>
+                    <div class="price-note"><i class="fas fa-gift"></i> 2 780 ₸/занятие</div>
+                </div>
+
+                <a href="index.html#contact" class="program-btn" style="background: var(--gradient-orange-glow);">Выбрать полный</a>
+            </div>
+
+            <!-- Карточка 3: Продвинутый курс -->
+            <div class="program-card optional">
+                <div class="program-badge badge-orange">Дополнительно</div>
+                <div class="program-header">
+                    <div class="program-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="program-title">
+                        <h3>Продвинутый</h3>
+                        <p>Модули 7-9 · 6 занятий</p>
+                    </div>
+                </div>
+
+                <div class="modules-preview">
+                    <h4><i class="fas fa-cubes"></i> Состав программы:</h4>
+                    <div class="module-tags">
+                        <span class="module-tag optional">Госуслуги</span>
+                        <span class="module-tag optional">Путешествия</span>
+                        <span class="module-tag optional">Искусственный интеллект</span>
+                    </div>
+                </div>
+
+                <ul class="program-features">
+                    <li><i class="fas fa-check-circle"></i> Госуслуги и документы</li>
+                    <li><i class="fas fa-check-circle"></i> Планирование путешествий</li>
+                    <li><i class="fas fa-check-circle"></i> ChatGPT и Gemini</li>
+                    <li><i class="fas fa-check-circle"></i> Нейросети для жизни</li>
+                </ul>
+
+                <div class="price-block">
+                    <div class="price-label">Стоимость</div>
+                    <div class="price">15 000 ₸</div>
+                    <div class="price-note"><i class="fas fa-clock"></i> 2 500 ₸/занятие</div>
+                </div>
+
+                <div style="text-align: center; margin-bottom: 15px; font-size: 0.9rem; color: var(--primary-orange);">
+                    <i class="fas fa-info-circle"></i> Для уверенных пользователей
+                </div>
+
+                <a href="index.html#contact" class="program-btn">Выбрать продвинутый</a>
+            </div>
+        </div>
+
+        <!-- Блок помощи с выбором -->
+        <div class="help-block">
+            <h3><i class="fas fa-lightbulb"></i> Как выбрать программу?</h3>
+            <div class="help-grid">
+                <div class="help-item">
+                    <div class="help-number">1</div>
+                    <div class="help-text">
+                        <h4>Новичок?</h4>
+                        <p>Начинайте с базового курса (40 000 ₸). Это фундамент, который нужен каждому.</p>
+                    </div>
+                </div>
+                <div class="help-item">
+                    <div class="help-number">2</div>
+                    <div class="help-text">
+                        <h4>Уверенный пользователь?</h4>
+                        <p>Можно взять продвинутый курс (15 000 ₸) или сразу полный (50 000 ₸).</p>
+                    </div>
+                </div>
+                <div class="help-item">
+                    <div class="help-number">3</div>
+                    <div class="help-text">
+                        <h4>Хотите максимум?</h4>
+                        <p>Полный курс — лучший выбор. Экономия 5 000 ₸ и все модули сразу.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="faq-section">
+            <h3><i class="fas fa-question-circle"></i> Часто задаваемые вопросы</h3>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h4><i class="fas fa-question"></i> Можно ли начать с продвинутого?</h4>
+                    <p>Да, если вы уверенно пользуетесь смартфоном и делаете платежи онлайн. Позвоните — мы поможем определить ваш уровень.</p>
+                </div>
+                <div class="faq-item">
+                    <h4><i class="fas fa-question"></i> Почему базовый курс обязательный?</h4>
+                    <p>Это основа. Без неё продвинутые темы (госуслуги, ИИ) будут сложны для понимания. Мы хотим, чтобы вы действительно разобрались.</p>
+                </div>
+                <div class="faq-item">
+                    <h4><i class="fas fa-question"></i> Есть ли рассрочка?</h4>
+                    <p>Да, рассрочка на 2-3 месяца без переплат. Также принимаем Kaspi Red и Halyk Bank в рассрочку.</p>
+                </div>
+                <div class="faq-item">
+                    <h4><i class="fas fa-question"></i> Что если не подойдет?</h4>
+                    <p>Первое занятие бесплатно. Если не подойдет — вернем деньги или предложим другой формат обучения.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Кнопка записи -->
+        <div class="cta-wrapper">
+            <a href="index.html#contact" class="cta-button">
+                <i class="fas fa-pen"></i> Записаться на пробное занятие
+            </a>
+            <div class="phone-link">
+                Или позвоните: <a href="tel:+77475509819">+7 (747) 550-98-19</a>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <i class="fas fa-laptop-code"></i>
+                    Цифровая грамотность
+                </div>
+                <p class="footer-description">
+                    Осваивайте технологии с уверенностью и комфортом. 
+                    Мы помогаем взрослым стать уверенными пользователями 
+                    цифровых технологий.
+                </p>
+                <div class="footer-social">
+                    <a href="#" class="social-link"><i class="fab fa-vk"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Навигация</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html#about">О курсе</a></li>
+                    <li><a href="modules.html">Модули</a></li>
+                    <li><a href="programs.html">Программы</a></li>
+                    <li><a href="pricing.html">Стоимость</a></li>
+                    <li><a href="index.html#reviews">Отзывы</a></li>
+                    <li><a href="index.html#contact">Запись</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Контакты</h3>
+                <div class="footer-contact">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+7 (747) 550-98-19</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Улица Ермухана Бекмаханова, 115/2</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>info@digital-course.ru</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Пн-ВС: 9:00-18:00</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Рассылка</h3>
+                <div class="footer-newsletter">
+                    <p>Подпишитесь на новости и акции</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Ваш email" required>
+                        <button type="submit" class="btn">Подписаться</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="copyright">
+                © Цифровая грамотность для взрослых, 2023. Все права защищены.
+            </div>
+            <ul class="footer-bottom-links">
+                <li><a href="#">Политика конфиденциальности</a></li>
+                <li><a href="#">Пользовательское соглашение</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+<script src="script.js"></script>
+
+
+
+</body>
+</html>
