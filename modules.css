@@ -142,20 +142,10 @@
 }
 
 /* ФИКСИРОВАННЫЙ ПРОГРЕСС-БАР - УПРАВЛЯЕТСЯ JS */
-/*
-  На мобильных прогресс-бар встраивается ПОСЛЕ навигации через CSS-переменную --nav-height.
-  Установите её один раз в JS при загрузке страницы:
-
-    const nav = document.querySelector('nav') || document.querySelector('header');
-    if (nav) {
-      document.documentElement.style.setProperty('--nav-height', nav.offsetHeight + 'px');
-    }
-
-  Если высота навигации меняется (resize), обновите переменную в обработчике resize.
-*/
+/* top выставляется динамически через JS: courseProgress.style.top = header.offsetHeight + 'px' */
 .course-progress.fixed {
     position: fixed !important;
-    top: 80px !important;
+    top: 80px !important; /* fallback, перезаписывается JS */
     left: 0 !important;
     right: 0 !important;
     margin: 0 !important;
@@ -166,7 +156,7 @@
     box-shadow: 0 5px 20px rgba(0,0,0,0.1) !important;
     border-radius: 0 !important;
     border-bottom: 2px solid rgba(255, 107, 53, 0.1) !important;
-    z-index: 1000 !important;
+    z-index: 90 !important; /* ниже header(1000), мобильного меню(999) и кнопки бургера(1000) */
     animation: slideDown 0.3s ease !important;
     width: 100% !important;
     max-width: 100% !important;
@@ -398,10 +388,7 @@
         margin-top: 0.5rem;
     }
     
-    /* Фиксированный прогресс-бар на мобильных — встраивается ПОСЛЕ навигации */
-    .course-progress.fixed {
-        top: var(--nav-height, 60px) !important;
-    }
+    /* top для мобильных выставляется динамически через JS */
     
     .course-progress.fixed .progress-track {
         padding: 0.6rem 1rem !important;
@@ -492,10 +479,7 @@
 
     
     
-    /* Фиксированный бар для маленьких экранов */
-    .course-progress.fixed {
-        top: var(--nav-height, 50px) !important;
-    }
+    /* top выставляется динамически через JS */
     
     .course-progress.fixed .progress-track {
         padding: 0.5rem 0.8rem !important;
@@ -507,11 +491,9 @@
     }
 }
 
-/* Ландшафтная ориентация */
+/* Ландшафтная ориентация — top выставляется JS автоматически */
 @media (max-height: 600px) and (orientation: landscape) {
-    .course-progress.fixed {
-        top: var(--nav-height, 50px) !important;
-    }
+    /* top не переопределяем — JS уже выставил правильное значение */
 }
 
 /* Высокие экраны */
