@@ -16,6 +16,8 @@
     background: white;
     box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
     margin: 0;
+    padding: 0;
+    animation: slideDown 0.3s ease;
 }
 
 .progress-track {
@@ -155,15 +157,15 @@
 
 
 .course-progress.fixed .progress-track {
-    max-width: 1200px !important;
-    margin: 0 auto !important;
-    padding: 0.8rem 2rem !important;
-    background: transparent !important;
-    box-shadow: none !important;
-    border: none !important;
-    border-radius: 0 !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0.8rem 2rem;
+    background: transparent;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .course-progress.fixed .step-circle {
@@ -561,12 +563,3 @@
         padding: 0.8rem;
     }
 }
-
-}
-
-
-
-
-
-
-
