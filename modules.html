@@ -33,20 +33,11 @@
 
     <!-- Страница модулей -->
     <section class="modules-page">
-        <div class="container">
-            <a href="index.html" class="back-button">
-                <i class="fas fa-arrow-left"></i> Назад на главную
-            </a>
-            
-            <div class="modules-hero" id="modules-hero">
-                <h1>Программа курса</h1>
-                <p>9 модулей, разделенных на 3 уровня сложности. Начните с первого модуля и идите к вершинам цифровой грамотности!</p>
-            </div>
 
-            <!-- Прогресс-бар уровней -->
-            <div class="course-progress" id="course-progress">
-                <div class="progress-track">
-                    <div class="progress-step" data-step="1" data-target="beginner-level">
+        <!-- Прогресс-бар уровней — ВНЕ контейнера для корректного fixed -->
+        <div class="course-progress" id="course-progress">
+            <div class="progress-track">
+                <div class="progress-step" data-step="1" data-target="beginner-level">
                         <div class="step-circle">
                             <i class="fas fa-seedling"></i>
                         </div>
@@ -76,6 +67,15 @@
                 </div>
             </div>
 
+        <div class="container">
+            <a href="index.html" class="back-button">
+                <i class="fas fa-arrow-left"></i> Назад на главную
+            </a>
+            
+            <div class="modules-hero" id="modules-hero">
+                <h1>Программа курса</h1>
+                <p>9 модулей, разделенных на 3 уровня сложности. Начните с первого модуля и идите к вершинам цифровой грамотности!</p>
+            </div>
 
             <!-- ========== НАЧАЛЬНЫЙ УРОВЕНЬ (1-3) ========== -->
             <div class="level-section" id="beginner-level">
