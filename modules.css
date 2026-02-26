@@ -170,7 +170,7 @@ body.has-fixed-progress .level-section:first-of-type {
 /* Для мобильных устройств */
 @media (max-width: 768px) {
     .course-progress.fixed {
-        top: 60px !important; /* Базовое значение */
+        top: 80px !important; /* Базовое значение */
     }
     
     body.has-fixed-progress .level-section:first-of-type {
@@ -182,7 +182,7 @@ body.has-fixed-progress .level-section:first-of-type {
 /* Для очень маленьких телефонов */
 @media (max-width: 480px) {
     .course-progress.fixed {
-        top: 55px !important;
+        top: 80px !important;
     }
     
     body.has-fixed-progress .level-section:first-of-type {
@@ -203,7 +203,7 @@ body.has-fixed-progress .level-section:first-of-type {
 @supports (padding-top: env(safe-area-inset-top)) {
     @media (max-width: 768px) {
         .course-progress.fixed {
-            top: calc(60px + env(safe-area-inset-top)) !important;
+            top: calc(80px + env(safe-area-inset-top)) !important;
         }
     }
 }
@@ -617,6 +617,7 @@ body.has-fixed-progress .level-section:first-of-type {
 }
 
 }
+
 
 
 
