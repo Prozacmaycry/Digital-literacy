@@ -576,6 +576,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let isFixed = false;
     let isMobile = window.innerWidth <= 768;
     const levelPositions = {};
+    let progressNaturalTop = 0; // Кэшируем натуральную позицию
 
     // Placeholder — чтобы контент не прыгал когда прогресс-бар уходит в fixed
     const placeholder = document.createElement('div');
@@ -598,12 +599,20 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Получаем реальный offsetTop прогресс-бара (через placeholder когда он fixed)
-    function getProgressNaturalTop() {
+    // Кэшируем натуральную позицию прогресс-бара
+    function cacheProgressNaturalTop() {
+        // Временно снимаем fixed чтобы получить реальную позицию
         if (isFixed) {
-            return placeholder.offsetTop;
+            courseProgress.classList.remove('fixed');
+            courseProgress.style.top = '';
         }
-        return courseProgress.offsetTop;
+        const rect = courseProgress.getBoundingClientRect();
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        progressNaturalTop = rect.top + scrollTop;
+        if (isFixed) {
+            courseProgress.classList.add('fixed');
+            applyFixedTop();
+        }
     }
 
     // Инициализация позиций уровней
@@ -623,27 +632,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Устанавливаем top прогресс-бара точно под header
     function applyFixedTop() {
-        if (!header) {
-            courseProgress.style.top = '80px';
-            return;
-        }
-        // getBoundingClientRect().bottom — точная нижняя граница header прямо сейчас
-        const headerBottom = header.getBoundingClientRect().bottom;
-        // Если header вне viewport (scrolled past), используем offsetHeight
-        const top = headerBottom > 0 ? headerBottom : header.offsetHeight;
-        courseProgress.style.top = top + 'px';
+        const headerHeight = header ? header.offsetHeight : 80;
+        courseProgress.style.top = headerHeight + 'px';
     }
 
     // Обновление fixed-состояния
     function updateFixed(scrollPosition) {
-        const naturalTop = getProgressNaturalTop();
-        const shouldBeFixed = scrollPosition > naturalTop;
+        const headerHeight = header ? header.offsetHeight : 80;
+        const shouldBeFixed = scrollPosition + headerHeight >= progressNaturalTop;
 
         if (shouldBeFixed === isFixed) return;
         isFixed = shouldBeFixed;
 
         if (shouldBeFixed) {
-            // Запоминаем высоту перед фиксацией
             placeholder.style.height = courseProgress.offsetHeight + 'px';
             placeholder.style.display = 'block';
             courseProgress.classList.add('fixed');
@@ -672,7 +673,7 @@ document.addEventListener("DOMContentLoaded", () => {
             activeLevel = newActiveLevel;
             progressSteps.forEach(step => {
                 const stepNumber = parseInt(step.getAttribute('data-step'));
-                step.classList.toggle('active', stepNumber <= activeLevel);
+                step.classList.toggle('active', stepNumber === activeLevel);
             });
             updateProgressLines();
         }
@@ -686,14 +687,14 @@ document.addEventListener("DOMContentLoaded", () => {
             line.classList.remove('active');
         });
         
-        const lines = document.querySelectorAll('.progress-line');
-        
-        if (activeLevel >= 2 && lines[0]) {
-            lines[0].classList.add('active');
+        if (activeLevel >= 2) {
+            const firstLine = document.querySelector('.progress-line:first-of-type');
+            if (firstLine) firstLine.classList.add('active');
         }
         
-        if (activeLevel >= 3 && lines[1]) {
-            lines[1].classList.add('active');
+        if (activeLevel >= 3) {
+            const secondLine = document.querySelector('.progress-line:last-of-type');
+            if (secondLine) secondLine.classList.add('active');
         }
     }
     
@@ -723,6 +724,7 @@ document.addEventListener("DOMContentLoaded", () => {
         
         setTimeout(() => {
             initLevelPositions();
+            cacheProgressNaturalTop();
             updateActiveLevel();
             
             if (progressSteps.length > 0) {
@@ -754,16 +756,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     
     
-    // Оптимизированный скролл через requestAnimationFrame
-    let ticking = false;
+    // Дебаунсинг для оптимизации
+    let scrollTimeout;
     window.addEventListener('scroll', function() {
-        if (!ticking) {
-            requestAnimationFrame(() => {
-                updateActiveLevel();
-                ticking = false;
-            });
-            ticking = true;
-        }
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(updateActiveLevel, 50);
     });
     
     let resizeTimeout;
@@ -772,6 +769,7 @@ document.addEventListener("DOMContentLoaded", () => {
         resizeTimeout = setTimeout(() => {
             checkDevice();
             initLevelPositions();
+            cacheProgressNaturalTop();
             updateActiveLevel();
             if (isFixed) applyFixedTop();
         }, 150);
@@ -799,5 +797,8 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // Инициализация
     init();
+    window.addEventListener('load', function() {
+        setTimeout(init, 300);
+    });
     
 });
