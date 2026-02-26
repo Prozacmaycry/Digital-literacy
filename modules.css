@@ -195,7 +195,7 @@ body.has-fixed-progress .level-section:first-of-type {
 @supports (padding-top: constant(safe-area-inset-top)) {
     @media (max-width: 768px) {
         .course-progress.fixed {
-            top: calc(60px + constant(safe-area-inset-top)) !important;
+            top: calc(80px + constant(safe-area-inset-top)) !important;
         }
     }
 }
@@ -617,5 +617,6 @@ body.has-fixed-progress .level-section:first-of-type {
 }
 
 }
+
 
 
