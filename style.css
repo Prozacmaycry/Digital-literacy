@@ -3059,3 +3059,12 @@ html, body {
         border-bottom-color: #333;
     }
 }
+/* Добавьте в конец файла modules.css */
+
+.progress-content-wrapper {
+    transition: margin-top 0.3s ease;
+}
+
+.course-progress.fixed + .progress-content-wrapper {
+    margin-top: 0; /* Это будет переопределено через JS */
+}
