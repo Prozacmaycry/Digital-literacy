@@ -582,7 +582,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 50);
 });
 
-// ===== ИСПРАВЛЕННЫЙ ПРОГРЕСС-БАР =====
+// ===== ИСПРАВЛЕННЫЙ ПРОГРЕСС-БАР С ОБЕРТКОЙ КОНТЕНТА =====
 document.addEventListener('DOMContentLoaded', function() {
     // Элементы DOM
     const progressSteps = document.querySelectorAll('.progress-step');
@@ -592,6 +592,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const header = document.querySelector('header');
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const navLinks = document.querySelector('.nav-links');
+    const modulesHero = document.querySelector('.modules-hero');
+    const container = document.querySelector('.modules-page .container');
 
     // Если нет прогресс-бара на странице, выходим
     if (!courseProgress || !header || !levelSections.length) return;
@@ -607,6 +609,33 @@ document.addEventListener('DOMContentLoaded', function() {
     placeholder.id = 'course-progress-placeholder';
     placeholder.style.cssText = 'display:none; width:100%;';
     courseProgress.parentNode.insertBefore(placeholder, courseProgress);
+
+    // Добавляем обертку для контента после прогресс-бара
+    function addContentWrapper() {
+        const nextElement = courseProgress.nextElementSibling;
+        if (nextElement && !nextElement.classList.contains('progress-content-wrapper')) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'progress-content-wrapper';
+            
+            // Перемещаем все элементы после прогресс-бара в обертку
+            const elements = [];
+            let current = courseProgress.nextElementSibling;
+            while (current) {
+                elements.push(current);
+                current = current.nextElementSibling;
+            }
+            
+            elements.forEach(el => {
+                wrapper.appendChild(el);
+            });
+            
+            courseProgress.parentNode.insertBefore(wrapper, courseProgress.nextSibling);
+        }
+    }
+    
+    addContentWrapper();
+    
+    const contentWrapper = document.querySelector('.progress-content-wrapper');
 
     // Проверяем, открыто ли мобильное меню
     function isMobileMenuOpen() {
@@ -650,14 +679,13 @@ document.addEventListener('DOMContentLoaded', function() {
     function applyFixedTop() {
         // Получаем текущую позицию header
         const headerRect = header.getBoundingClientRect();
-        // Если header видим, используем его нижнюю границу, иначе используем высоту
-        const top = headerRect.bottom > 0 ? headerRect.bottom : header.offsetHeight;
+        // Используем нижнюю границу header
+        const top = headerRect.bottom;
         
         courseProgress.style.top = top + 'px';
         
         // Для мобильных устройств проверяем, не открыто ли меню
         if (isMobile && isMobileMenuOpen() && navLinks) {
-            // Если мобильное меню открыто, возможно нужно увеличить отступ
             const navLinksRect = navLinks.getBoundingClientRect();
             if (navLinksRect && navLinksRect.height > 0) {
                 courseProgress.style.top = (top + navLinksRect.height) + 'px';
@@ -668,15 +696,26 @@ document.addEventListener('DOMContentLoaded', function() {
     // Обновление fixed-состояния
     function updateFixed(scrollPosition) {
         const naturalTop = getProgressNaturalTop();
-        const shouldBeFixed = scrollPosition > naturalTop;
+        const headerHeight = header.offsetHeight;
+        
+        // Проверяем, нужно ли зафиксировать прогресс-бар
+        const shouldBeFixed = scrollPosition > naturalTop - headerHeight;
 
         if (shouldBeFixed === isFixed) return;
+        
         isFixed = shouldBeFixed;
 
         if (shouldBeFixed) {
             // Запоминаем высоту перед фиксацией
-            placeholder.style.height = courseProgress.offsetHeight + 'px';
+            const progressHeight = courseProgress.offsetHeight;
+            placeholder.style.height = progressHeight + 'px';
             placeholder.style.display = 'block';
+            
+            // Добавляем отступ для контента
+            if (contentWrapper) {
+                contentWrapper.style.marginTop = progressHeight + 'px';
+            }
+            
             courseProgress.classList.add('fixed');
             applyFixedTop();
             
@@ -686,6 +725,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.addEventListener('resize', function() {
                     if (isFixed) {
                         applyFixedTop();
+                        if (contentWrapper) {
+                            contentWrapper.style.marginTop = courseProgress.offsetHeight + 'px';
+                        }
                     }
                 });
             }
@@ -693,6 +735,11 @@ document.addEventListener('DOMContentLoaded', function() {
             courseProgress.classList.remove('fixed');
             courseProgress.style.top = '';
             placeholder.style.display = 'none';
+            
+            // Убираем отступ для контента
+            if (contentWrapper) {
+                contentWrapper.style.marginTop = '';
+            }
         }
     }
 
@@ -805,7 +852,12 @@ document.addEventListener('DOMContentLoaded', function() {
             checkDevice();
             initLevelPositions();
             updateActiveLevel();
-            if (isFixed) applyFixedTop();
+            if (isFixed) {
+                applyFixedTop();
+                if (contentWrapper) {
+                    contentWrapper.style.marginTop = courseProgress.offsetHeight + 'px';
+                }
+            }
         }, 150);
     });
     
@@ -822,7 +874,12 @@ document.addEventListener('DOMContentLoaded', function() {
         mobileMenuBtn.addEventListener('click', function() {
             // После анимации меню пересчитываем высоту header и top прогресс-бара
             setTimeout(() => {
-                if (isFixed) applyFixedTop();
+                if (isFixed) {
+                    applyFixedTop();
+                    if (contentWrapper) {
+                        contentWrapper.style.marginTop = courseProgress.offsetHeight + 'px';
+                    }
+                }
                 initLevelPositions();
                 updateActiveLevel();
             }, 300);
