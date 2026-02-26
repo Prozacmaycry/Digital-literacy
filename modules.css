@@ -145,7 +145,6 @@
 /* top выставляется динамически через JS: courseProgress.style.top = header.offsetHeight + 'px' */
 .course-progress.fixed {
     position: fixed !important;
-    top: 80px !important; /* fallback, перезаписывается JS */
     left: 0 !important;
     right: 0 !important;
     margin: 0 !important;
@@ -569,3 +568,4 @@
         padding: 0.8rem;
     }
 }
+
