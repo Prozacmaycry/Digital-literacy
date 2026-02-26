@@ -6,6 +6,18 @@
     transition: all 0.3s ease;
 }
 
+.course-progress.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 100;
+    background: white;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    margin: 0;
+}
+
 .progress-track {
     display: flex;
     align-items: center;
@@ -551,6 +563,7 @@
 }
 
 }
+
 
 
 
