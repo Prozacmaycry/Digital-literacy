@@ -141,12 +141,10 @@
     text-align: left;
 }
 
-/* ФИКСИРОВАННЫЙ ПРОГРЕСС-БАР - УПРАВЛЯЕТСЯ JS */
-/* top выставляется динамически через JS: courseProgress.style.top = header.offsetHeight + 'px' */
 /* Исправление для фиксированного прогресс-бара */
 .course-progress.fixed {
     position: fixed !important;
-    top: 100px !important; /* Высота хедера */
+    top: 80px !important; /* Высота хедера */
     left: 0 !important;
     right: 0 !important;
     margin: 0 !important;
@@ -167,6 +165,47 @@
 body.has-fixed-progress .level-section:first-of-type {
     padding-top: 100px; /* Высота прогресс-бара + небольшой отступ */
     margin-top: -100px;
+}
+
+/* Для мобильных устройств */
+@media (max-width: 768px) {
+    .course-progress.fixed {
+        top: 60px !important; /* Базовое значение */
+    }
+    
+    body.has-fixed-progress .level-section:first-of-type {
+        padding-top: 80px;
+        margin-top: -80px;
+    }
+}
+
+/* Для очень маленьких телефонов */
+@media (max-width: 480px) {
+    .course-progress.fixed {
+        top: 55px !important;
+    }
+    
+    body.has-fixed-progress .level-section:first-of-type {
+        padding-top: 75px;
+        margin-top: -75px;
+    }
+}
+
+/* Для телефонов с большими вырезами (iPhone и подобные) */
+@supports (padding-top: constant(safe-area-inset-top)) {
+    @media (max-width: 768px) {
+        .course-progress.fixed {
+            top: calc(60px + constant(safe-area-inset-top)) !important;
+        }
+    }
+}
+
+@supports (padding-top: env(safe-area-inset-top)) {
+    @media (max-width: 768px) {
+        .course-progress.fixed {
+            top: calc(60px + env(safe-area-inset-top)) !important;
+        }
+    }
 }
 
 .course-progress.fixed .progress-track {
@@ -577,15 +616,6 @@ body.has-fixed-progress .level-section:first-of-type {
     }
 }
 
-/* Для мобильных устройств */
-@media (max-width: 768px) {
-    .course-progress.fixed {
-        top: 70px !important; /* Меньшая высота хедера на мобильных */
-    }
-    
-    body.has-fixed-progress .level-section:first-of-type {
-        padding-top: 80px;
-        margin-top: -80px;
-    }
 }
+
 
