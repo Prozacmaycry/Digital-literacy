@@ -21,43 +21,29 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     
     // Вставляем кнопку закрытия в меню
-    if (nav) {
-        nav.insertBefore(closeBtn, nav.firstChild);
-    }
+    nav.insertBefore(closeBtn, nav.firstChild);
 
     function openMenu() {
-        if (!nav || !overlay) return;
         nav.classList.add('active');
         overlay.classList.add('active');
         document.body.style.overflow = 'hidden'; // Блокируем скролл
     }
 
     function closeMenu() {
-        if (!nav || !overlay) return;
         nav.classList.remove('active');
         overlay.classList.remove('active');
         document.body.style.overflow = ''; // Разблокируем скролл
     }
 
     // События
-    if (menuBtn) {
-        menuBtn.addEventListener("click", openMenu);
-    }
-    
-    if (closeBtn) {
-        closeBtn.addEventListener("click", closeMenu);
-    }
-    
-    if (overlay) {
-        overlay.addEventListener("click", closeMenu);
-    }
+    menuBtn.addEventListener("click", openMenu);
+    closeBtn.addEventListener("click", closeMenu);
+    overlay.addEventListener("click", closeMenu);
 
     // Закрытие меню при клике на ссылку
-    if (nav) {
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', closeMenu);
-        });
-    }
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', closeMenu);
+    });
 });
 
 // Изменение шапки при прокрутке
@@ -127,7 +113,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
-
 // УНИВЕРСАЛЬНЫЙ ПОМОЩНИК ДЛЯ ВСЕХ СТРАНИЦ
 document.addEventListener('DOMContentLoaded', function() {
     initializeAssistant();
@@ -208,16 +193,21 @@ function initializePricingButtons() {
     autoFillForm();
 }
 
+
+
+
+
+
+
+
 // EmailJS обработка формы signup-form
 document.addEventListener('DOMContentLoaded', function() {
     // Инициализация EmailJS
-    if (typeof emailjs !== 'undefined') {
-        emailjs.init("I57g_xcTJf_ttcC_n");
-    }
+    emailjs.init("I57g_xcTJf_ttcC_n");
     
     const signupForm = document.getElementById('signup-form');
     
-    if (signupForm) {
+        if (signupForm) {
         signupForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -230,13 +220,11 @@ document.addEventListener('DOMContentLoaded', function() {
             this.appendChild(planField);
             
             const submitBtn = document.getElementById('submit-btn');
-            const originalText = submitBtn ? submitBtn.textContent : 'Отправить';
+            const originalText = submitBtn.textContent;
             
             // Показываем состояние загрузки
-            if (submitBtn) {
-                submitBtn.textContent = 'Отправка...';
-                submitBtn.disabled = true;
-            }
+            submitBtn.textContent = 'Отправка...';
+            submitBtn.disabled = true;
             
             // Находим или создаем элемент для сообщений
             let formMessage = document.getElementById('form-message');
@@ -257,52 +245,39 @@ document.addEventListener('DOMContentLoaded', function() {
             this.appendChild(dateField);
             
             // Отправка формы через EmailJS
-            if (typeof emailjs !== 'undefined') {
-                emailjs.sendForm("Gmailcon", "template_vs9v9by", this)
-                    .then(function(response) {
-                        console.log('SUCCESS!', response.status, response.text);
-                        
-                        // Успешная отправка
-                        showFormMessage('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.', 'success');
-                        this.reset();
-                        
-                        // Удаляем временное поле даты
-                        if (dateField.parentNode) {
-                            dateField.remove();
-                        }
-                        
-                        // Возвращаем кнопку в исходное состояние
-                        setTimeout(() => {
-                            if (submitBtn) {
-                                submitBtn.textContent = originalText;
-                                submitBtn.disabled = false;
-                            }
-                        }, 3000);
-                        
-                    }.bind(this), function(error) {
-                        // Ошибка отправки
-                        console.error('FAILED...', error);
-                        showFormMessage('Произошла ошибка при отправке. Пожалуйста, попробуйте еще раз или свяжитесь с нами по телефону.', 'error');
-                        
-                        // Удаляем временное поле даты
-                        if (dateField.parentNode) {
-                            dateField.remove();
-                        }
-                        
-                        // Возвращаем кнопку в исходное состояние
-                        if (submitBtn) {
-                            submitBtn.textContent = originalText;
-                            submitBtn.disabled = false;
-                        }
-                    });
-            } else {
-                console.error('EmailJS not loaded');
-                showFormMessage('Ошибка загрузки сервиса отправки. Пожалуйста, попробуйте позже.', 'error');
-                if (submitBtn) {
+            emailjs.sendForm("Gmailcon", "template_vs9v9by", this)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    
+                    // Успешная отправка
+                    showFormMessage('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.', 'success');
+                    this.reset();
+                    
+                    // Удаляем временное поле даты
+                    if (dateField.parentNode) {
+                        dateField.remove();
+                    }
+                    
+                    // Возвращаем кнопку в исходное состояние
+                    setTimeout(() => {
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                    }, 3000);
+                    
+                }.bind(this), function(error) {
+                    // Ошибка отправки
+                    console.error('FAILED...', error);
+                    showFormMessage('Произошла ошибка при отправке. Пожалуйста, попробуйте еще раз или свяжитесь с нами по телефону.', 'error');
+                    
+                    // Удаляем временное поле даты
+                    if (dateField.parentNode) {
+                        dateField.remove();
+                    }
+                    
+                    // Возвращаем кнопку в исходное состояние
                     submitBtn.textContent = originalText;
                     submitBtn.disabled = false;
-                }
-            }
+                });
             
             function showFormMessage(message, type) {
                 formMessage.textContent = message;
@@ -396,6 +371,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+
+
+
 // Инициализация всех функций при загрузке
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Сайт загружен и готов к работе!');
@@ -403,6 +381,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Добавляем класс для CSS анимаций после загрузки
     document.body.classList.add('loaded');
 });
+
+
 
 // Функция для отправки в мессенджеры
 function sendToMessenger(button) {
@@ -581,53 +561,243 @@ document.addEventListener("DOMContentLoaded", () => {
         scrollToAnchor(hash);
     }, 50);
 });
-
-// ===== ПРОСТОЙ ПРОГРЕСС-БАР (ТОЛЬКО ДОБАВЛЕНИЕ/УДАЛЕНИЕ КЛАССА) =====
-document.addEventListener('DOMContentLoaded', function() {
+   document.addEventListener('DOMContentLoaded', function() {
+    // Элементы DOM
+    const progressSteps = document.querySelectorAll('.progress-step');
+    const progressLines = document.querySelectorAll('.progress-line');
+    const levelSections = document.querySelectorAll('.level-section');
     const courseProgress = document.getElementById('course-progress');
     const header = document.querySelector('header');
-    
-    if (!courseProgress || !header) return;
-    
-    // Функция обновления состояния прогресс-бара
-    function updateProgressBar() {
-        const headerHeight = header.offsetHeight;
-        const progressTop = courseProgress.offsetTop;
-        const scrollPosition = window.scrollY;
-        
-        if (scrollPosition > progressTop - headerHeight) {
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+
+    // Переменные состояния
+    let activeLevel = 1;
+    let isFixed = false;
+    let isMobile = window.innerWidth <= 768;
+    const levelPositions = {};
+
+    // Placeholder — чтобы контент не прыгал когда прогресс-бар уходит в fixed
+    const placeholder = document.createElement('div');
+    placeholder.id = 'course-progress-placeholder';
+    placeholder.style.cssText = 'display:none; width:100%;';
+    courseProgress.parentNode.insertBefore(placeholder, courseProgress);
+
+    // Проверяем, открыто ли мобильное меню
+    function isMobileMenuOpen() {
+        return navLinks && navLinks.classList.contains('active');
+    }
+
+    // Определение устройства
+    function checkDevice() {
+        const wasMobile = isMobile;
+        isMobile = window.innerWidth <= 768;
+        if (wasMobile !== isMobile) {
+            initLevelPositions();
+            updateActiveLevel();
+        }
+    }
+
+    // Получаем реальный offsetTop прогресс-бара (через placeholder когда он fixed)
+    function getProgressNaturalTop() {
+        if (isFixed) {
+            return placeholder.offsetTop;
+        }
+        return courseProgress.offsetTop;
+    }
+
+    // Инициализация позиций уровней
+    function initLevelPositions() {
+        const headerHeight = header ? header.offsetHeight : 80;
+        levelSections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const offsetAdjustment = isMobile ? 30 : 50;
+            const offsetTop = rect.top + scrollTop - headerHeight - offsetAdjustment;
+            const id = section.id;
+            const step = id === 'beginner-level' ? 1 :
+                        id === 'intermediate-level' ? 2 : 3;
+            levelPositions[step] = offsetTop;
+        });
+    }
+
+    // Устанавливаем top прогресс-бара точно под header
+    function applyFixedTop() {
+        if (!header) {
+            courseProgress.style.top = '80px';
+            return;
+        }
+        // getBoundingClientRect().bottom — точная нижняя граница header прямо сейчас
+        const headerBottom = header.getBoundingClientRect().bottom;
+        // Если header вне viewport (scrolled past), используем offsetHeight
+        const top = headerBottom > 0 ? headerBottom : header.offsetHeight;
+        courseProgress.style.top = top + 'px';
+    }
+
+    // Обновление fixed-состояния
+    function updateFixed(scrollPosition) {
+        const naturalTop = getProgressNaturalTop();
+        const shouldBeFixed = scrollPosition > naturalTop;
+
+        if (shouldBeFixed === isFixed) return;
+        isFixed = shouldBeFixed;
+
+        if (shouldBeFixed) {
+            // Запоминаем высоту перед фиксацией
+            placeholder.style.height = courseProgress.offsetHeight + 'px';
+            placeholder.style.display = 'block';
             courseProgress.classList.add('fixed');
-            document.body.classList.add('has-fixed-progress');
+            applyFixedTop();
         } else {
             courseProgress.classList.remove('fixed');
-            document.body.classList.remove('has-fixed-progress');
+            courseProgress.style.top = '';
+            placeholder.style.display = 'none';
+        }
+    }
+
+    // Обновление активного уровня
+    function updateActiveLevel() {
+        const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+        const viewportHeight = window.innerHeight;
+        const triggerOffset = viewportHeight * (isMobile ? 0.15 : 0.2);
+
+        let newActiveLevel = 1;
+        if (levelPositions[3] && scrollPosition >= levelPositions[3] - triggerOffset) {
+            newActiveLevel = 3;
+        } else if (levelPositions[2] && scrollPosition >= levelPositions[2] - triggerOffset) {
+            newActiveLevel = 2;
+        }
+
+        if (newActiveLevel !== activeLevel) {
+            activeLevel = newActiveLevel;
+            progressSteps.forEach(step => {
+                const stepNumber = parseInt(step.getAttribute('data-step'));
+                step.classList.toggle('active', stepNumber <= activeLevel);
+            });
+            updateProgressLines();
+        }
+
+        updateFixed(scrollPosition);
+    }
+    
+    // Обновление линий прогресса
+    function updateProgressLines() {
+        progressLines.forEach(line => {
+            line.classList.remove('active');
+        });
+        
+        const lines = document.querySelectorAll('.progress-line');
+        
+        if (activeLevel >= 2 && lines[0]) {
+            lines[0].classList.add('active');
+        }
+        
+        if (activeLevel >= 3 && lines[1]) {
+            lines[1].classList.add('active');
         }
     }
     
-    // Запускаем при скролле
-    window.addEventListener('scroll', updateProgressBar);
+    // Скролл к выбранному уровню
+    function scrollToLevel(step) {
+        const targetId = step.getAttribute('data-target');
+        const targetElement = document.getElementById(targetId);
+        
+        if (targetElement) {
+            const hh = header ? header.offsetHeight : 80;
+            const offsetAdjustment = isMobile ? hh + 20 : hh + 30;
+            const offset = targetElement.offsetTop - offsetAdjustment;
+            
+            window.scrollTo({
+                top: offset,
+                behavior: 'smooth'
+            });
+        }
+    }
+
     
-    // Запускаем при загрузке и изменении размера окна
-    window.addEventListener('load', updateProgressBar);
-    window.addEventListener('resize', updateProgressBar);
     
-    // Клик по шагам прогресса для скролла к уровню
-    document.querySelectorAll('.progress-step').forEach(step => {
+    
+    // Адаптивная инициализация
+    function init() {
+        checkDevice();
+        
+        setTimeout(() => {
+            initLevelPositions();
+            updateActiveLevel();
+            
+            if (progressSteps.length > 0) {
+                progressSteps[0].classList.add('active');
+            }
+            
+            // Анимации для модулей
+            const observerOptions = {
+                threshold: isMobile ? 0.05 : 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.module-detail').forEach(module => {
+                observer.observe(module);
+            });
+            
+            console.log('Progress bar initialized');
+        }, 100);
+    }
+
+    
+    
+    // Оптимизированный скролл через requestAnimationFrame
+    let ticking = false;
+    window.addEventListener('scroll', function() {
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                updateActiveLevel();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+    
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            checkDevice();
+            initLevelPositions();
+            updateActiveLevel();
+            if (isFixed) applyFixedTop();
+        }, 150);
+    });
+    
+    // Клик по шагам прогресса
+    progressSteps.forEach(step => {
         step.addEventListener('click', function(e) {
             e.preventDefault();
-            const targetId = this.getAttribute('data-target');
-            const targetElement = document.getElementById(targetId);
-            
-            if (targetElement) {
-                const headerHeight = header.offsetHeight;
-                const progressHeight = courseProgress.offsetHeight;
-                const offset = targetElement.offsetTop - headerHeight - progressHeight - 20;
-                
-                window.scrollTo({
-                    top: offset,
-                    behavior: 'smooth'
-                });
-            }
+            scrollToLevel(this);
         });
     });
+    
+    // Обработка открытия/закрытия мобильного меню
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', function() {
+            // После анимации меню пересчитываем высоту header и top прогресс-бара
+            setTimeout(() => {
+                if (isFixed) applyFixedTop();
+                initLevelPositions();
+                updateActiveLevel();
+            }, 300);
+        });
+    }
+    
+    // Инициализация
+    init();
+    
 });
