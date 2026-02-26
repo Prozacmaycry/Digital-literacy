@@ -21,29 +21,43 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     
     // Вставляем кнопку закрытия в меню
-    nav.insertBefore(closeBtn, nav.firstChild);
+    if (nav) {
+        nav.insertBefore(closeBtn, nav.firstChild);
+    }
 
     function openMenu() {
+        if (!nav || !overlay) return;
         nav.classList.add('active');
         overlay.classList.add('active');
         document.body.style.overflow = 'hidden'; // Блокируем скролл
     }
 
     function closeMenu() {
+        if (!nav || !overlay) return;
         nav.classList.remove('active');
         overlay.classList.remove('active');
         document.body.style.overflow = ''; // Разблокируем скролл
     }
 
     // События
-    menuBtn.addEventListener("click", openMenu);
-    closeBtn.addEventListener("click", closeMenu);
-    overlay.addEventListener("click", closeMenu);
+    if (menuBtn) {
+        menuBtn.addEventListener("click", openMenu);
+    }
+    
+    if (closeBtn) {
+        closeBtn.addEventListener("click", closeMenu);
+    }
+    
+    if (overlay) {
+        overlay.addEventListener("click", closeMenu);
+    }
 
     // Закрытие меню при клике на ссылку
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', closeMenu);
-    });
+    if (nav) {
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+    }
 });
 
 // Изменение шапки при прокрутке
@@ -113,6 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
 // УНИВЕРСАЛЬНЫЙ ПОМОЩНИК ДЛЯ ВСЕХ СТРАНИЦ
 document.addEventListener('DOMContentLoaded', function() {
     initializeAssistant();
@@ -193,21 +208,16 @@ function initializePricingButtons() {
     autoFillForm();
 }
 
-
-
-
-
-
-
-
 // EmailJS обработка формы signup-form
 document.addEventListener('DOMContentLoaded', function() {
     // Инициализация EmailJS
-    emailjs.init("I57g_xcTJf_ttcC_n");
+    if (typeof emailjs !== 'undefined') {
+        emailjs.init("I57g_xcTJf_ttcC_n");
+    }
     
     const signupForm = document.getElementById('signup-form');
     
-        if (signupForm) {
+    if (signupForm) {
         signupForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -220,11 +230,13 @@ document.addEventListener('DOMContentLoaded', function() {
             this.appendChild(planField);
             
             const submitBtn = document.getElementById('submit-btn');
-            const originalText = submitBtn.textContent;
+            const originalText = submitBtn ? submitBtn.textContent : 'Отправить';
             
             // Показываем состояние загрузки
-            submitBtn.textContent = 'Отправка...';
-            submitBtn.disabled = true;
+            if (submitBtn) {
+                submitBtn.textContent = 'Отправка...';
+                submitBtn.disabled = true;
+            }
             
             // Находим или создаем элемент для сообщений
             let formMessage = document.getElementById('form-message');
@@ -245,39 +257,52 @@ document.addEventListener('DOMContentLoaded', function() {
             this.appendChild(dateField);
             
             // Отправка формы через EmailJS
-            emailjs.sendForm("Gmailcon", "template_vs9v9by", this)
-                .then(function(response) {
-                    console.log('SUCCESS!', response.status, response.text);
-                    
-                    // Успешная отправка
-                    showFormMessage('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.', 'success');
-                    this.reset();
-                    
-                    // Удаляем временное поле даты
-                    if (dateField.parentNode) {
-                        dateField.remove();
-                    }
-                    
-                    // Возвращаем кнопку в исходное состояние
-                    setTimeout(() => {
-                        submitBtn.textContent = originalText;
-                        submitBtn.disabled = false;
-                    }, 3000);
-                    
-                }.bind(this), function(error) {
-                    // Ошибка отправки
-                    console.error('FAILED...', error);
-                    showFormMessage('Произошла ошибка при отправке. Пожалуйста, попробуйте еще раз или свяжитесь с нами по телефону.', 'error');
-                    
-                    // Удаляем временное поле даты
-                    if (dateField.parentNode) {
-                        dateField.remove();
-                    }
-                    
-                    // Возвращаем кнопку в исходное состояние
+            if (typeof emailjs !== 'undefined') {
+                emailjs.sendForm("Gmailcon", "template_vs9v9by", this)
+                    .then(function(response) {
+                        console.log('SUCCESS!', response.status, response.text);
+                        
+                        // Успешная отправка
+                        showFormMessage('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.', 'success');
+                        this.reset();
+                        
+                        // Удаляем временное поле даты
+                        if (dateField.parentNode) {
+                            dateField.remove();
+                        }
+                        
+                        // Возвращаем кнопку в исходное состояние
+                        setTimeout(() => {
+                            if (submitBtn) {
+                                submitBtn.textContent = originalText;
+                                submitBtn.disabled = false;
+                            }
+                        }, 3000);
+                        
+                    }.bind(this), function(error) {
+                        // Ошибка отправки
+                        console.error('FAILED...', error);
+                        showFormMessage('Произошла ошибка при отправке. Пожалуйста, попробуйте еще раз или свяжитесь с нами по телефону.', 'error');
+                        
+                        // Удаляем временное поле даты
+                        if (dateField.parentNode) {
+                            dateField.remove();
+                        }
+                        
+                        // Возвращаем кнопку в исходное состояние
+                        if (submitBtn) {
+                            submitBtn.textContent = originalText;
+                            submitBtn.disabled = false;
+                        }
+                    });
+            } else {
+                console.error('EmailJS not loaded');
+                showFormMessage('Ошибка загрузки сервиса отправки. Пожалуйста, попробуйте позже.', 'error');
+                if (submitBtn) {
                     submitBtn.textContent = originalText;
                     submitBtn.disabled = false;
-                });
+                }
+            }
             
             function showFormMessage(message, type) {
                 formMessage.textContent = message;
@@ -371,9 +396,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-
-
-
 // Инициализация всех функций при загрузке
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Сайт загружен и готов к работе!');
@@ -381,8 +403,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Добавляем класс для CSS анимаций после загрузки
     document.body.classList.add('loaded');
 });
-
-
 
 // Функция для отправки в мессенджеры
 function sendToMessenger(button) {
@@ -561,7 +581,9 @@ document.addEventListener("DOMContentLoaded", () => {
         scrollToAnchor(hash);
     }, 50);
 });
-   document.addEventListener('DOMContentLoaded', function() {
+
+// ===== ИСПРАВЛЕННЫЙ ПРОГРЕСС-БАР =====
+document.addEventListener('DOMContentLoaded', function() {
     // Элементы DOM
     const progressSteps = document.querySelectorAll('.progress-step');
     const progressLines = document.querySelectorAll('.progress-line');
@@ -570,6 +592,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const header = document.querySelector('header');
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const navLinks = document.querySelector('.nav-links');
+
+    // Если нет прогресс-бара на странице, выходим
+    if (!courseProgress || !header || !levelSections.length) return;
 
     // Переменные состояния
     let activeLevel = 1;
@@ -608,7 +633,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Инициализация позиций уровней
     function initLevelPositions() {
-        const headerHeight = header ? header.offsetHeight : 80;
+        const headerHeight = header.offsetHeight;
         levelSections.forEach(section => {
             const rect = section.getBoundingClientRect();
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -621,15 +646,24 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
- function applyFixedTop() {
-    if (!header) {
-        courseProgress.style.top = '80px';
-        return;
+    // Устанавливаем top прогресс-бара точно под header
+    function applyFixedTop() {
+        // Получаем текущую позицию header
+        const headerRect = header.getBoundingClientRect();
+        // Если header видим, используем его нижнюю границу, иначе используем высоту
+        const top = headerRect.bottom > 0 ? headerRect.bottom : header.offsetHeight;
+        
+        courseProgress.style.top = top + 'px';
+        
+        // Для мобильных устройств проверяем, не открыто ли меню
+        if (isMobile && isMobileMenuOpen() && navLinks) {
+            // Если мобильное меню открыто, возможно нужно увеличить отступ
+            const navLinksRect = navLinks.getBoundingClientRect();
+            if (navLinksRect && navLinksRect.height > 0) {
+                courseProgress.style.top = (top + navLinksRect.height) + 'px';
+            }
+        }
     }
-
-    const headerHeight = header.offsetHeight;
-    courseProgress.style.top = headerHeight + 'px';
-}
 
     // Обновление fixed-состояния
     function updateFixed(scrollPosition) {
@@ -645,6 +679,16 @@ document.addEventListener("DOMContentLoaded", () => {
             placeholder.style.display = 'block';
             courseProgress.classList.add('fixed');
             applyFixedTop();
+            
+            // Добавляем обработчик изменения размера окна для коррекции позиции
+            if (!window.fixedTopHandler) {
+                window.fixedTopHandler = true;
+                window.addEventListener('resize', function() {
+                    if (isFixed) {
+                        applyFixedTop();
+                    }
+                });
+            }
         } else {
             courseProgress.classList.remove('fixed');
             courseProgress.style.top = '';
@@ -700,8 +744,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const targetElement = document.getElementById(targetId);
         
         if (targetElement) {
-            const hh = header ? header.offsetHeight : 80;
-            const offsetAdjustment = isMobile ? hh + 20 : hh + 30;
+            const headerHeight = header.offsetHeight;
+            const progressHeight = courseProgress.offsetHeight;
+            const offsetAdjustment = isMobile ? headerHeight + progressHeight + 10 : headerHeight + progressHeight + 20;
             const offset = targetElement.offsetTop - offsetAdjustment;
             
             window.scrollTo({
@@ -711,9 +756,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    
-    
-    
     // Адаптивная инициализация
     function init() {
         checkDevice();
@@ -749,8 +791,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 100);
     }
 
-    
-    
     // Дебаунсинг для оптимизации
     let scrollTimeout;
     window.addEventListener('scroll', function() {
